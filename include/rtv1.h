@@ -24,6 +24,7 @@
 # define SPHERE		1
 # define PLANE		2
 # define CYLINDRE   3
+# define CONE		4
 
 
 # include <fcntl.h>
@@ -94,6 +95,7 @@ typedef	struct	s_object
 	int			name;
 	t_color		color;
 	t_vector	pos;
+	t_vector	n;
 }				t_object;
 
 typedef struct	s_sdl
@@ -129,6 +131,7 @@ int		ray_tracer_obj( t_sdl *sdl, float min, float max);
 int		ray_tracer_cy(t_vector *org, t_vector *direction, float min, float max, t_sdl *sdl);
 t_discrim	finde_sphere(t_object *obj, t_sdl *sdl);
 t_discrim	finde_cylindre(t_object *obj, t_sdl *sdl);
+t_discrim	finde_cone(t_object *obj, t_sdl *sdl);
 
 t_vector	vector_sub(t_vector *v1, t_vector *v2);
 t_vector	vector_add(t_vector *v1, t_vector *v2);

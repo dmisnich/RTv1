@@ -27,6 +27,7 @@ SRCS =	src/main.c \
 		src/sphere.c \
 		src/plane.c \
 		src/cylindre.c \
+		src/cone.c \
 		./get_next_line/get_next_line.c \
 
 

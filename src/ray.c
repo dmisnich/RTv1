@@ -40,17 +40,19 @@ int		ray_tracer_obj( t_sdl *sdl, float min, float max)
 	t_vector p;
 	t_vector p1;
 	t_vector norm;
-	int i = 4;
+	int i = 3;
 
 	sdl->closest_sphere = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		if (sdl->obj[i].name == SPHERE)
 			tsp = finde_sphere(&sdl->obj[i], sdl);
 		if (sdl->obj[i].name == PLANE)
 		 	tsp = finde_plane(&sdl->obj[i], sdl, 0, 10000000);
-		// if (sdl->obj[i].name == CYLINDRE)
-		//  	tsp = finde_cylindre(&sdl->obj[i], sdl);
+		if (sdl->obj[i].name == CYLINDRE)
+		 	tsp = finde_cylindre(&sdl->obj[i], sdl);
+		 if (sdl->obj[i].name == CONE)
+		 	tsp = finde_cone(&sdl->obj[i], sdl);
 		if (tsp.x1 > 0 && tsp.x1 > sdl->closest_sphere && tsp.x1 > min && tsp.x1 < max)
 		{
 			sdl->closest_sphere = tsp.x1;
@@ -85,7 +87,7 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)
 	i = 0;
 	res = 0.0;
 	len_norm = vector_len(norm);
-	while (i < 2)
+	while (i < 3)
 	{
 		if (sdl->light[i].type == AMBIENT)
 		{
@@ -94,7 +96,9 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)
 		else
 		{
 			if (sdl->light[i].type == POINT)
+			{
 				l = vector_sub(&sdl->light[i].pos, p);
+			}
 			else
 				l = sdl->light[i].pos;
 			n_dot = vector_dot(norm, &l);
