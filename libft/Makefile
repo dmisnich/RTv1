@@ -24,7 +24,7 @@ ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c \
 ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c \
 ft_strtrim.c ft_tolower.c ft_toupper.c ft_free_arr.c ft_lstnew.c ft_lstdelone.c \
 ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_word_len.c ft_char_len.c \
-ft_factorial.c ft_sqrt.c
+ft_factorial.c ft_sqrt.c get_next_line.c
 
 OBJ = $(SRCS:.c=.o)
 

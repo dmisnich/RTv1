@@ -26,7 +26,7 @@ void	draw(t_sdl *sdl)
 		while (x < WIDTH)
 		{
 			sdl->ray.dir = change_coords(sdl, x - (WIDTH / 2), (HEIGHT / 2) - y);
-			color = ray_tracer_obj(sdl, 0, 10000000);
+			color = ray_tracer_obj(sdl);
 			sdl->buff[x + y * WIDTH] = color;
 			x++;
 		}
@@ -34,31 +34,33 @@ void	draw(t_sdl *sdl)
 	}
 }
 
-int		ray_tracer_obj( t_sdl *sdl, float min, float max)
+int		ray_tracer_obj( t_sdl *sdl)
 {
 	t_discrim tsp;
 	t_vector p;
 	t_vector p1;
 	t_vector norm;
-	int i = 3;
+	int i = 4;
 
 	sdl->closest_sphere = 0;
-	while (i < 6)
+	while (i < 5 )
 	{
 		if (sdl->obj[i].name == SPHERE)
-			tsp = finde_sphere(&sdl->obj[i], sdl);
+			tsp = find_sphere(&sdl->obj[i], sdl);
 		if (sdl->obj[i].name == PLANE)
-		 	tsp = finde_plane(&sdl->obj[i], sdl, 0, 10000000);
+		 	tsp = find_plane(&sdl->obj[i], sdl);
 		if (sdl->obj[i].name == CYLINDRE)
-		 	tsp = finde_cylindre(&sdl->obj[i], sdl);
+		 	tsp = find_cylindre(&sdl->obj[i], sdl);
 		 if (sdl->obj[i].name == CONE)
-		 	tsp = finde_cone(&sdl->obj[i], sdl);
-		if (tsp.x1 > 0 && tsp.x1 > sdl->closest_sphere && tsp.x1 > min && tsp.x1 < max)
+		 	tsp = find_cone(&sdl->obj[i], sdl);
+		 // 	printf("x1: %f\n", tsp.x1);
+			// printf("x2: %f\n", tsp.x2);
+		if (tsp.x1 > 0 && tsp.x2 < 0 && tsp.x1 > sdl->closest_sphere)
 		{
 			sdl->closest_sphere = tsp.x1;
 			break ;
 		}
-		if (tsp.x2 > 0 && tsp.x2 > sdl->closest_sphere && min < tsp.x2 && tsp.x2 < max)
+		if (tsp.x2 > 0 && tsp.x2 > sdl->closest_sphere)
 		{
 			sdl->closest_sphere = tsp.x2;
 			break ;
@@ -72,7 +74,7 @@ int		ray_tracer_obj( t_sdl *sdl, float min, float max)
 	norm = vector_sub(&p, &sdl->obj[i].pos);
 	norm = vector_mult_scal(&norm, 1.0 / vector_len(&norm));
 	float cl = findelight(&p, &norm, sdl);
-	return (color(sdl, i, cl));
+	return (color(sdl, i, 1));
 }
 
 float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)

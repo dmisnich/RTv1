@@ -28,7 +28,6 @@ SRCS =	src/main.c \
 		src/plane.c \
 		src/cylindre.c \
 		src/cone.c \
-		./get_next_line/get_next_line.c \
 
 
 
@@ -73,3 +72,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+.SILENT:

@@ -21,18 +21,19 @@ int		main(int argc, char **argv)
 	init_figure(&sdl);
 	init_light(&sdl);
 
+	draw(&sdl);
+	SDL_UpdateWindowSurface(sdl.win);
 	while (1)
 	{
 		if (!SDL_PollEvent(&sdl.event))
 		{
 			if (sdl.event.type == SDL_QUIT || (sdl.event.type == SDL_KEYDOWN && sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				break;
-			draw(&sdl);
-			SDL_UpdateWindowSurface(sdl.win);
 		}
 	}
 	SDL_DestroyWindow(sdl.win);
-    SDL_Quit();
+	// system("leaks -q RTv1");
+	SDL_Quit();
 }
 
 // void	parse(char **av)

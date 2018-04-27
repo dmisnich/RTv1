@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_discrim	finde_sphere(t_object *obj, t_sdl *sdl)
+t_discrim	find_sphere(t_object *obj, t_sdl *sdl)
 {
 	t_discrim	tsp;
 	t_vector	oc;
@@ -22,6 +22,7 @@ t_discrim	finde_sphere(t_object *obj, t_sdl *sdl)
 	float		c;
 	
 	// printf("test\n");
+
 	oc = vector_sub(&sdl->camera.cam, &obj->pos);
 	a = vector_dot(&sdl->ray.dir, &sdl->ray.dir);
 	b = 2 * vector_dot(&oc, &sdl->ray.dir);

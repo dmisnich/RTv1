@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_discrim	finde_cone(t_object *obj, t_sdl *sdl)
+t_discrim	find_cone(t_object *obj, t_sdl *sdl)
 {
 	t_discrim	tsp;
 	t_vector	oc;
@@ -26,9 +26,9 @@ t_discrim	finde_cone(t_object *obj, t_sdl *sdl)
 	int m = vector_len(&obj->n);
 	oc = vector_sub(&sdl->camera.cam, &obj->pos);
 	a = vector_dot(&sdl->ray.dir, &sdl->ray.dir)
-	- (1 + obj->radius * obj->radius) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&sdl->ray.dir, &obj->n));
-	b = 2 * vector_dot(&oc, &sdl->ray.dir) - (1 + obj->radius * obj->radius) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&oc, &obj->n));;
-	c = vector_dot(&oc, &oc) - (1 + obj->radius * obj->radius) * (vector_dot(&oc, &obj->n) * vector_dot(&oc, &obj->n));
+	- (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&sdl->ray.dir, &obj->n));
+	b = 2 * vector_dot(&oc, &sdl->ray.dir) - (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&oc, &obj->n));;
+	c = vector_dot(&oc, &oc) - (1 + obj->tan * obj->tan) * (vector_dot(&oc, &obj->n) * vector_dot(&oc, &obj->n));
 	discrim = b * b - (4 * a * c);
 	if (discrim < 0)
 		return((t_discrim){-1, -1});
