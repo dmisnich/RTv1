@@ -16,8 +16,7 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-CFLAGS = -I ./include/ \
-					-I Frameworks/SDL2.framework/Headers
+CFLAGS = -I ./include/ -I Frameworks/SDL2.framework/Headers
 
 
 SRCS =	src/main.c \

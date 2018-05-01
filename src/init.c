@@ -15,9 +15,9 @@
 
 void	init_camera(t_sdl *sdl)
 {
-	sdl->camera.cam.x = 1.0;
-	sdl->camera.cam.y = 10.0;
-	sdl->camera.cam.z = -10.0;
+	sdl->camera.cam.x = -2.0;
+	sdl->camera.cam.y = 1.0;
+	sdl->camera.cam.z = -20.0;
 }
 
 void	init_figure(t_sdl *sdl)
@@ -25,8 +25,8 @@ void	init_figure(t_sdl *sdl)
 	sdl->obj = (t_object *)malloc(sizeof(t_object) * 6);
 	sdl->obj[0].name = SPHERE;
 	sdl->obj[0].radius = 1;
-	sdl->obj[0].pos.x = 2.0;
-	sdl->obj[0].pos.y = -1.0;
+	sdl->obj[0].pos.x = 0.0;
+	sdl->obj[0].pos.y = 0.0;
 	sdl->obj[0].pos.z = 0.0;
 	sdl->obj[0].color.r = 255;
 	sdl->obj[0].color.g = 0;
@@ -70,8 +70,8 @@ void	init_figure(t_sdl *sdl)
 	sdl->obj[4].n.y = 1.0;
 	sdl->obj[4].n.z = 0.0;
 	sdl->obj[4].color.r = 0;
-	sdl->obj[4].color.g = 255;
-	sdl->obj[4].color.b = 255;
+	sdl->obj[4].color.g = 137;
+	sdl->obj[4].color.b = 5;
 
 	sdl->obj[5].name = CONE;
 	sdl->obj[5].tan = 0.3;
@@ -91,19 +91,19 @@ void	init_light(t_sdl *sdl)
 	sdl->light = (t_light *)malloc(sizeof(t_light) * 3);
 
 	sdl->light[0].type = AMBIENT;
-	sdl->light[0].intensity = 0.1;
+	sdl->light[0].intensity = 0.0;
 
 	// sdl->light[1].type = POINT;
 	// sdl->light[1].intensity = 0.9;
-	// sdl->light[1].pos.x = 0.0;
+	// sdl->light[1].pos.x = 1.0;
 	// sdl->light[1].pos.y = 0.0;
-	// sdl->light[1].pos.z = 3.0;
+	// sdl->light[1].pos.z = 0.0;
 
-	sdl->light[2].type = DIR;
-	sdl->light[2].intensity = 0.9;
-	sdl->light[2].pos.x = 1.0;
-	sdl->light[2].pos.y = 0.0;
-	sdl->light[2].pos.z = 0.0;
+	sdl->light[1].type = DIR;
+	sdl->light[1].intensity = 0.6;
+	sdl->light[1].pos.x = 0.0;
+	sdl->light[1].pos.y = 0.0;
+	sdl->light[1].pos.z = 1.0;
 }
 
 void	init_sdl(t_sdl *sdl)
@@ -112,7 +112,7 @@ void	init_sdl(t_sdl *sdl)
 		printf("error\n");
 	sdl->win = SDL_CreateWindow("RTv1", 0, 0, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
 	sdl->surface = SDL_GetWindowSurface(sdl->win);
-	sdl->vp.w = 1.0;
-	sdl->vp.h = 1.0;
-	sdl->vp.dist = 1.0;
+	sdl->vp.w = 0.5;
+	sdl->vp.h = 0.5;
+	sdl->vp.dist = 0.5;
 }

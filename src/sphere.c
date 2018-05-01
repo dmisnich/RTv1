@@ -20,17 +20,11 @@ t_discrim	find_sphere(t_object *obj, t_sdl *sdl)
 	float		a;
 	float		b;
 	float		c;
-	
-	// printf("test\n");
 
 	oc = vector_sub(&sdl->camera.cam, &obj->pos);
 	a = vector_dot(&sdl->ray.dir, &sdl->ray.dir);
 	b = 2 * vector_dot(&oc, &sdl->ray.dir);
 	c = vector_dot(&oc, &oc) - obj->radius * obj->radius;
-	discrim = b * b - (4 * a * c);
-	if (discrim < 0)
-		return((t_discrim){-1, -1});
-	tsp.x1 = (-b + sqrt(discrim) / (2.0 * a));
-	tsp.x2 = (-b - sqrt(discrim) / (2.0 * a));
+	tsp = find_solve_discrim(a, b, c);
 	return (tsp);
 }

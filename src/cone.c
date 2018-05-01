@@ -27,12 +27,8 @@ t_discrim	find_cone(t_object *obj, t_sdl *sdl)
 	oc = vector_sub(&sdl->camera.cam, &obj->pos);
 	a = vector_dot(&sdl->ray.dir, &sdl->ray.dir)
 	- (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&sdl->ray.dir, &obj->n));
-	b = 2 * vector_dot(&oc, &sdl->ray.dir) - (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&oc, &obj->n));;
+	b = 2 * vector_dot(&oc, &sdl->ray.dir) - (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&oc, &obj->n) * 2);
 	c = vector_dot(&oc, &oc) - (1 + obj->tan * obj->tan) * (vector_dot(&oc, &obj->n) * vector_dot(&oc, &obj->n));
-	discrim = b * b - (4 * a * c);
-	if (discrim < 0)
-		return((t_discrim){-1, -1});
-	tsp.x1 = (-b + sqrt(discrim) / (2.0 * a));
-	tsp.x2 = (-b - sqrt(discrim) / (2.0 * a));
+	tsp = find_solve_discrim(a, b, c);
 	return (tsp);
 }

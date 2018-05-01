@@ -26,6 +26,7 @@ void	draw(t_sdl *sdl)
 		while (x < WIDTH)
 		{
 			sdl->ray.dir = change_coords(sdl, x - (WIDTH / 2), (HEIGHT / 2) - y);
+			sdl->ray.dir = vector_norm(&sdl->ray.dir);
 			color = ray_tracer_obj(sdl);
 			sdl->buff[x + y * WIDTH] = color;
 			x++;
@@ -40,10 +41,10 @@ int		ray_tracer_obj( t_sdl *sdl)
 	t_vector p;
 	t_vector p1;
 	t_vector norm;
-	int i = 4;
+	int i = 3;
 
 	sdl->closest_sphere = 0;
-	while (i < 5 )
+	while (i < 4)
 	{
 		if (sdl->obj[i].name == SPHERE)
 			tsp = find_sphere(&sdl->obj[i], sdl);
@@ -53,9 +54,7 @@ int		ray_tracer_obj( t_sdl *sdl)
 		 	tsp = find_cylindre(&sdl->obj[i], sdl);
 		 if (sdl->obj[i].name == CONE)
 		 	tsp = find_cone(&sdl->obj[i], sdl);
-		 // 	printf("x1: %f\n", tsp.x1);
-			// printf("x2: %f\n", tsp.x2);
-		if (tsp.x1 > 0 && tsp.x2 < 0 && tsp.x1 > sdl->closest_sphere)
+		if (tsp.x1 > 0 && tsp.x1 > sdl->closest_sphere)
 		{
 			sdl->closest_sphere = tsp.x1;
 			break ;
@@ -77,6 +76,21 @@ int		ray_tracer_obj( t_sdl *sdl)
 	return (color(sdl, i, 1));
 }
 
+t_discrim	find_solve_discrim(float a, float b, float c)
+{
+	t_discrim	tsp;
+	float		discrim;
+
+	discrim = (b * b) - (4 * a * c);
+	if (discrim < 0)
+		return ((t_discrim){-1, -1});
+	if (discrim < 0 && discrim > -0.0001)
+		discrim = 0;
+	tsp.x1 = (-b + sqrtf(discrim)) / (2.0 * a);
+	tsp.x2 = (-b - sqrtf(discrim)) / (2.0 * a);
+	return (tsp);
+}
+
 float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)
 {
 	int i;
@@ -89,7 +103,7 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)
 	i = 0;
 	res = 0.0;
 	len_norm = vector_len(norm);
-	while (i < 3)
+	while (i < 2)
 	{
 		if (sdl->light[i].type == AMBIENT)
 		{

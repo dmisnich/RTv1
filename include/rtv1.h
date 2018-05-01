@@ -13,8 +13,8 @@
 #ifndef RTV1_H
 # define RTV1_H
 
-# define WIDTH		640
-# define HEIGHT		480
+# define WIDTH		900
+# define HEIGHT		900
 # define AMBIENT	1
 # define POINT		10
 # define DIR		3
