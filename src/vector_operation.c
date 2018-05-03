@@ -15,9 +15,7 @@
 t_vector	vector_sub(t_vector *v1, t_vector *v2)
 {
 	t_vector res;
-
-	// res = (t_vector *)malloc(sizeof(t_vector));
-
+	
 	res.x = v1->x - v2->x;
 	res.y = v1->y - v2->y;
 	res.z = v1->z - v2->z;

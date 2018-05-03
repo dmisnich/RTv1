@@ -16,10 +16,17 @@ int		main(int argc, char **argv)
 {
 	t_sdl	sdl;
 	
+	if (argc != 2)
+	{
+		printf("error\n");
+		return (0);
+	}
 	init_sdl(&sdl);
 	init_camera(&sdl);
-	init_figure(&sdl);
+	if (!(parser_av(&sdl, argv[1])))
+		return (0);
 	init_light(&sdl);
+
 
 	draw(&sdl);
 	SDL_UpdateWindowSurface(sdl.win);
@@ -27,7 +34,8 @@ int		main(int argc, char **argv)
 	{
 		if (!SDL_PollEvent(&sdl.event))
 		{
-			if (sdl.event.type == SDL_QUIT || (sdl.event.type == SDL_KEYDOWN && sdl.event.key.keysym.sym == SDLK_ESCAPE))
+			if (sdl.event.type == SDL_QUIT || (sdl.event.type == SDL_KEYDOWN
+				&& sdl.event.key.keysym.sym == SDLK_ESCAPE))
 				break;
 		}
 	}
@@ -36,12 +44,25 @@ int		main(int argc, char **argv)
 	SDL_Quit();
 }
 
-// void	parse(char **av)
-// {
-	
-// }
+int	parser_av(t_sdl *sdl, char *av)
+{
+	if (!(ft_strcmp(av, "scene_1")))
+		init_scene_1(sdl);
+	else if (!(ft_strcmp(av, "scene_2")))
+		init_scene_2(sdl);
+	else if (!(ft_strcmp(av, "scene_3")))
+		init_scene_3(sdl);
+	else if (!(ft_strcmp(av, "scene_4")))
+		init_scene_4(sdl);
+	else
+	{
+		printf("forbidden name\n");
+		return (0);
+	}
+	return (1);
+}
 
-t_vector	change_coords(t_sdl *sdl, int x, int y)
+t_vector	find_ray_diraction(t_sdl *sdl, int x, int y)
 {
 	t_vector res;
 
@@ -57,9 +78,9 @@ unsigned int		color(t_sdl *sdl, int i, float value)
 	t_color			color;
 	unsigned int	c;
 
-	color.r = sdl->obj[i].color.r * value;
-	color.g = sdl->obj[i].color.g * value;
-	color.b = sdl->obj[i].color.b * value;
+	color.r = sdl->scene->obj[i].color.r * value;
+	color.g = sdl->scene->obj[i].color.g * value;
+	color.b = sdl->scene->obj[i].color.b * value;
 	c = (color.r << 16) + (color.g << 8) + color.b;
 	return (c);
 }

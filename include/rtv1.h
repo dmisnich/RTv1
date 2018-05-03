@@ -16,7 +16,7 @@
 # define WIDTH		900
 # define HEIGHT		900
 # define AMBIENT	1
-# define POINT		10
+# define POINT		2
 # define DIR		3
 
 // # define RDIST		sdl->plane[0].dist
@@ -26,12 +26,22 @@
 # define CYLINDRE   3
 # define CONE		4
 
+# define SCENE_1	1
+# define SCENE_2	2
+# define SCENE_3	3
+# define SCENE_4	4
+
+# define SCENE		1
+
+# define DIST		sdl->dist
+
 
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <math.h>
+# include <../libft/libft.h>
 # include "../Frameworks/SDL2.framework/Headers/SDL.h"
 
 
@@ -71,14 +81,6 @@ typedef struct s_viewport
 	float		dist;	
 }				t_viewport;
 
-typedef struct	s_cylindre
-{
-	float		radius;
-	t_vector	pos;
-	t_color		color;
-}				t_cylindre;
-
-
 typedef	struct	s_cam
 {
 	t_vector	cam;
@@ -99,6 +101,13 @@ typedef	struct	s_object
 	t_vector	n;
 }				t_object;
 
+typedef struct	s_scene
+{
+	t_object	*obj;
+	int			name;
+	int			max_obj;
+}				t_scene;
+
 typedef struct	s_sdl
 {
 	SDL_Window		*win;
@@ -108,8 +117,7 @@ typedef struct	s_sdl
 	t_viewport		vp;
 	t_ray			ray;
 	t_cam			camera;
-	t_object		*obj;
-	t_cylindre		*cylindre;
+	t_scene			*scene;
 	t_light			*light;
 	float			closest_sphere;
 	float			dist;
@@ -123,12 +131,11 @@ void				init_plane(t_sdl *sdl);
 void				init_cylindre(t_sdl *sdl);
 void				init_figure(t_sdl *sdl);
 void				draw(t_sdl *sdl);
-t_vector			change_coords(t_sdl *sdl, int x, int y);
+t_vector			find_ray_diraction(t_sdl *sdl, int x, int y);
 
 int					parse_obj(t_sdl *sdl);
 
 int					ray_tracer_obj( t_sdl *sdl);
-int					ray_tracer_cy(t_vector *org, t_vector *direction, float min, float max, t_sdl *sdl);
 
 t_discrim			find_sphere(t_object *obj, t_sdl *sdl);
 t_discrim			find_cylindre(t_object *obj, t_sdl *sdl);
@@ -150,7 +157,24 @@ unsigned int		color_p(t_sdl *sdl);
 float				findelight(t_vector *p, t_vector *norm, t_sdl *sdl);
 void				init_light(t_sdl *sdl);
 
-t_discrim	find_solve_discrim(float a, float b, float c);
+t_discrim			find_solve_discrim(t_sdl *sdl, float a, float b, float c);
+
+
+void				init_scene(t_sdl *sdl);
+
+void				init_scene_1(t_sdl *sdl);
+void				init_scene_2(t_sdl *sdl);
+void				init_scene_3(t_sdl *sdl);
+void				init_scene_4(t_sdl *sdl);
+
+int					parser_av(t_sdl *sdl, char *av);
+
+
+void				help1_init_scene_1(t_object **obj);
+void				help2_init_scene_1(t_object **obj);
+
+int					draw_scene(t_sdl *sdl);
+
 
 #endif
 

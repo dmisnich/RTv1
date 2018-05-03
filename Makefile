@@ -23,6 +23,7 @@ SRCS =	src/main.c \
 		src/vector_operation.c \
 		src/ray.c \
 		src/init.c \
+		src/help_init_scene.c \
 		src/sphere.c \
 		src/plane.c \
 		src/cylindre.c \
