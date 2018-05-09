@@ -13,17 +13,20 @@
 #include "rtv1.h"
 
 
-void	init_camera(t_sdl *sdl)
-{
-	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 0.0;
-	sdl->camera.cam.z = -20.0;
-}
+// void	init_camera(t_sdl *sdl)
+// {
+// 	sdl->camera.cam.x = 0.0;
+// 	sdl->camera.cam.y = 0.0;
+// 	sdl->camera.cam.z = -20.0;
+// }
 
 void	init_scene_1(t_sdl *sdl)
 {
-	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
+	sdl->camera.cam.x = 0.0;
+	sdl->camera.cam.y = 1.0;
+	sdl->camera.cam.z = -40.0;
 
+	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_1;
 	sdl->scene->max_obj = 4;
 	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 5);
@@ -33,32 +36,75 @@ void	init_scene_1(t_sdl *sdl)
 
 void	init_scene_2(t_sdl *sdl)
 {
+	sdl->camera.cam.x = 0.0;
+	sdl->camera.cam.y = 0.0;
+	sdl->camera.cam.z = -40.0;
+
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_2;
-	sdl->scene->max_obj = 1;
-	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 1);
+	sdl->scene->max_obj = 4;
+	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 4);
 	sdl->scene->obj[0].name = SPHERE;
 	sdl->scene->obj[0].radius = 1.0;
-	sdl->scene->obj[0].pos.x = 0.0;
+	sdl->scene->obj[0].pos.x = 3.0;
 	sdl->scene->obj[0].pos.y = 0.0;
-	sdl->scene->obj[0].pos.z = -10.0;
+	sdl->scene->obj[0].pos.z = -3.0;
 	sdl->scene->obj[0].color.r = 255;
 	sdl->scene->obj[0].color.g = 0;
 	sdl->scene->obj[0].color.b = 0;
+
+	sdl->scene->obj[1].name = CYLINDRE;
+	sdl->scene->obj[1].radius = 1.0;
+	sdl->scene->obj[1].pos.x = 0.0;
+	sdl->scene->obj[1].pos.y = 0.0;
+	sdl->scene->obj[1].pos.z = 0.0;
+	sdl->scene->obj[1].n.x = 0.0;
+	sdl->scene->obj[1].n.y = 1.0;
+	sdl->scene->obj[1].n.z = 0.0;
+	sdl->scene->obj[1].color.r = 255;
+	sdl->scene->obj[1].color.g = 0;
+	sdl->scene->obj[1].color.b = 255;
+
+	sdl->scene->obj[2].name = CONE;
+	sdl->scene->obj[2].tan = 0.5;
+	sdl->scene->obj[2].pos.x = 0.0;
+	sdl->scene->obj[2].pos.y = 0.0;
+	sdl->scene->obj[2].pos.z = 0.0;
+	sdl->scene->obj[2].n.x = 0.0;
+	sdl->scene->obj[2].n.y = 1.0;
+	sdl->scene->obj[2].n.z = 0.0;
+	sdl->scene->obj[2].color.r = 255;
+	sdl->scene->obj[2].color.g = 0;
+	sdl->scene->obj[2].color.b = 255;
+
+	sdl->scene->obj[3].name = PLANE;
+	sdl->scene->obj[3].pos.x = 0.0;
+	sdl->scene->obj[3].pos.y = 0.0;
+	sdl->scene->obj[3].pos.z = 0.0;
+	sdl->scene->obj[3].color.r = 139;
+	sdl->scene->obj[3].color.g = 139;
+	sdl->scene->obj[3].color.b = 139;
+	sdl->scene->obj[3].n.x = 0.0;
+	sdl->scene->obj[3].n.y = 1.0;
+	sdl->scene->obj[3].n.z = 0.0;
 }
 
 void	init_scene_3(t_sdl *sdl)
 {
+	sdl->camera.cam.x = 0.0;
+	sdl->camera.cam.y = 0.0;
+	sdl->camera.cam.z = -20.0;
+
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_3;
 	sdl->scene->max_obj = 1;
 	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 1);
 	sdl->scene->obj[0].name = CONE;
 	sdl->scene->obj[0].tan = 0.3;
-	sdl->scene->obj[0].pos.x = -1.0;
-	sdl->scene->obj[0].pos.y = 1.0;
+	sdl->scene->obj[0].pos.x = 0.0;
+	sdl->scene->obj[0].pos.y = 0.0;
 	sdl->scene->obj[0].pos.z = 0.0;
-	sdl->scene->obj[0].n.x = -0.2;
+	sdl->scene->obj[0].n.x = 0.0;
 	sdl->scene->obj[0].n.y = 1.0;
 	sdl->scene->obj[0].n.z = 0.0;
 	sdl->scene->obj[0].color.r = 255;
@@ -68,6 +114,10 @@ void	init_scene_3(t_sdl *sdl)
 
 void	init_scene_4(t_sdl *sdl)
 {
+	sdl->camera.cam.x = 0.0;
+	sdl->camera.cam.y = 0.0;
+	sdl->camera.cam.z = -20.0;
+
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_4;
 	sdl->scene->max_obj = 2;
@@ -90,7 +140,7 @@ void	init_light(t_sdl *sdl)
 	sdl->light = (t_light *)malloc(sizeof(t_light) * 3);
 
 	sdl->light[0].type = AMBIENT;
-	sdl->light[0].intensity = 0.3;
+	sdl->light[0].intensity = 0.6;
 
 	// sdl->light[1].type = POINT;
 	// sdl->light[1].intensity = 0.9;
@@ -99,7 +149,7 @@ void	init_light(t_sdl *sdl)
 	// sdl->light[1].pos.z = 0.0;
 
 	sdl->light[1].type = DIR;
-	sdl->light[1].intensity = 0.6;
+	sdl->light[1].intensity = 0.1;
 	sdl->light[1].pos.x = 20.0;
 	sdl->light[1].pos.y = 0.0;
 	sdl->light[1].pos.z = 1.0;

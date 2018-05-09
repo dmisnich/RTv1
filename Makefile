@@ -20,14 +20,16 @@ CFLAGS = -I ./include/ -I Frameworks/SDL2.framework/Headers
 
 
 SRCS =	src/main.c \
+		src/help_init_scene.c \
+		src/solve_discrim.c \
 		src/vector_operation.c \
 		src/ray.c \
 		src/init.c \
-		src/help_init_scene.c \
-		src/sphere.c \
-		src/plane.c \
-		src/cylindre.c \
-		src/cone.c \
+		src/objects/spot.c \
+		src/objects/sphere.c \
+		src/objects/plane.c \
+		src/objects/cylindre.c \
+		src/objects/cone.c \
 
 
 

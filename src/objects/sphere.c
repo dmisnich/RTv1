@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_discrim	find_sphere(t_object *obj, t_sdl *sdl)
+t_object	*find_sphere(t_object *obj, t_sdl *sdl)
 {
 	t_discrim	tsp;
 	t_vector	oc;
@@ -25,6 +25,5 @@ t_discrim	find_sphere(t_object *obj, t_sdl *sdl)
 	a = vector_dot(&sdl->ray.dir, &sdl->ray.dir);
 	b = 2 * vector_dot(&oc, &sdl->ray.dir);
 	c = vector_dot(&oc, &oc) - obj->radius * obj->radius;
-	tsp = find_solve_discrim(sdl, a, b, c);
-	return (tsp);
+	return (find_solve_discrim(sdl, a, b, c, obj));
 }

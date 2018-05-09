@@ -22,13 +22,13 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	init_sdl(&sdl);
-	init_camera(&sdl);
+	// init_camera(&sdl);
 	if (!(parser_av(&sdl, argv[1])))
 		return (0);
 	init_light(&sdl);
 
 
-	draw(&sdl);
+	raycaster(&sdl);
 	SDL_UpdateWindowSurface(sdl.win);
 	while (1)
 	{
@@ -66,11 +66,25 @@ t_vector	find_ray_diraction(t_sdl *sdl, int x, int y)
 {
 	t_vector res;
 
+	// printf("Y: %d\n", y);
+	// printf("X: %d\n", x);
 	res.y = ((float)y) * sdl->vp.h / HEIGHT;
 	res.x = ((float)x) * sdl->vp.w / WIDTH;
 	res.z = 1.0;
 	res = vector_norm(&res);
 	return (res);
+}
+
+unsigned int		color_test(t_color *color_obj, float value)
+{
+	t_color			color;
+	unsigned int	c;
+
+	color.r = color_obj->r * value;
+	color.g = color_obj->g * value;
+	color.b = color_obj->b * value;
+	c = (color.r << 16) + (color.g << 8) + color.b;
+	return (c);
 }
 
 unsigned int		color(t_sdl *sdl, int i, float value)

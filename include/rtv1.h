@@ -95,11 +95,18 @@ typedef	struct	s_object
 {
 	float		radius;
 	float		tan;
+	float		dist;
 	int			name;
 	t_color		color;
 	t_vector	pos;
 	t_vector	n;
 }				t_object;
+
+// typedef struct	s_list
+// {
+// 	t_object		*obj;
+// 	struct s_list	*next;
+// }				t_list;
 
 typedef struct	s_scene
 {
@@ -130,17 +137,17 @@ void				init_sphare(t_sdl *sdl);
 void				init_plane(t_sdl *sdl);
 void				init_cylindre(t_sdl *sdl);
 void				init_figure(t_sdl *sdl);
-void				draw(t_sdl *sdl);
+void				raycaster(t_sdl *sdl);
 t_vector			find_ray_diraction(t_sdl *sdl, int x, int y);
 
 int					parse_obj(t_sdl *sdl);
 
 int					ray_tracer_obj( t_sdl *sdl);
 
-t_discrim			find_sphere(t_object *obj, t_sdl *sdl);
-t_discrim			find_cylindre(t_object *obj, t_sdl *sdl);
-t_discrim			find_cone(t_object *obj, t_sdl *sdl);
-t_discrim			find_plane(t_object *obj, t_sdl *sdl);
+t_object			*find_sphere(t_object *obj, t_sdl *sdl);
+t_object			*find_cylindre(t_object *obj, t_sdl *sdl);
+t_object			*find_cone(t_object *obj, t_sdl *sdl);
+t_object			*find_plane(t_object *obj, t_sdl *sdl);
 
 t_vector			vector_sub(t_vector *v1, t_vector *v2);
 t_vector			vector_add(t_vector *v1, t_vector *v2);
@@ -157,7 +164,7 @@ unsigned int		color_p(t_sdl *sdl);
 float				findelight(t_vector *p, t_vector *norm, t_sdl *sdl);
 void				init_light(t_sdl *sdl);
 
-t_discrim			find_solve_discrim(t_sdl *sdl, float a, float b, float c);
+t_object			*find_solve_discrim(t_sdl *sdl, float a, float b, float c, t_object *obj);
 
 
 void				init_scene(t_sdl *sdl);
@@ -175,6 +182,9 @@ void				help2_init_scene_1(t_object **obj);
 
 int					draw_scene(t_sdl *sdl);
 
+float		light(t_sdl *sdl, int i, t_object *obj, t_discrim tsp);
+
+unsigned int		color_test(t_color *color_obj, float value);
 
 #endif
 

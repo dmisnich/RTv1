@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_discrim	find_cone(t_object *obj, t_sdl *sdl)
+t_object	*find_cone(t_object *obj, t_sdl *sdl)
 {
 	t_discrim	tsp;
 	t_vector	oc;
@@ -29,6 +29,5 @@ t_discrim	find_cone(t_object *obj, t_sdl *sdl)
 	- (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&sdl->ray.dir, &obj->n));
 	b = 2 * vector_dot(&oc, &sdl->ray.dir) - (1 + obj->tan * obj->tan) * (vector_dot(&sdl->ray.dir, &obj->n)) * (vector_dot(&oc, &obj->n) * 2);
 	c = vector_dot(&oc, &oc) - (1 + obj->tan * obj->tan) * (vector_dot(&oc, &obj->n) * vector_dot(&oc, &obj->n));
-	tsp = find_solve_discrim(sdl, a, b, c);
-	return (tsp);
+	return (find_solve_discrim(sdl, a, b, c, obj));
 }

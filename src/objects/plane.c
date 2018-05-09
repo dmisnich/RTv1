@@ -12,18 +12,19 @@
 
 #include "rtv1.h"
 
-t_discrim		find_plane(t_object *obj, t_sdl *sdl)
+t_object	*find_plane(t_object *obj, t_sdl *sdl)
 {
-	t_vector	x;
+	t_vector	oc;
 	float		res;
-	t_discrim	tsp;
+	float		dist;
 
 	obj->n = vector_norm(&obj->n);
-	x = vector_sub(&sdl->camera.cam, &obj->pos);
-	res = vector_dot(&sdl->ray.dir, &obj->n);
-	if (res == 0)
-		return ((t_discrim){0, 0});
-	tsp.x1 = -vector_dot(&x, &obj->n) / res;
-	tsp.x2 = 0.0;
-	return (tsp);
+	oc = vector_sub(&sdl->camera.cam, &obj->pos);
+	dist = -vector_dot(&oc, &obj->n) / vector_dot(&sdl->ray.dir, &obj->n);
+	if (dist > 0.00001)
+	{
+		obj->dist = dist;
+		return (obj);
+	}
+	return (NULL);
 }

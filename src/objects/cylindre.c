@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_discrim	find_cylindre(t_object *obj, t_sdl *sdl)
+t_object	*find_cylindre(t_object *obj, t_sdl *sdl)
 {
 	t_discrim	tsp;
 	t_vector	oc;
@@ -26,6 +26,5 @@ t_discrim	find_cylindre(t_object *obj, t_sdl *sdl)
 	param[0] = vector_dot(&sdl->ray.dir, &sdl->ray.dir) - pow(vector_dot(&sdl->ray.dir, &obj->n), 2);
 	param[1] = 2.0 * vector_dot(&sdl->ray.dir, &oc) - vector_dot(&sdl->ray.dir, &obj->n) * (vector_dot(&oc, &obj->n) * 2);
 	param[2] = vector_dot(&oc, &oc) - pow(vector_dot(&oc, &obj->n), 2) - pow(obj->radius, 2);
-	tsp = find_solve_discrim(sdl, param[0], param[1], param[2]);
-	return (tsp);
+	return (find_solve_discrim(sdl, param[0], param[1], param[2], obj));
 }
