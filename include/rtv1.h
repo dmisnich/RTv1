@@ -30,6 +30,8 @@
 # define SCENE_2	2
 # define SCENE_3	3
 # define SCENE_4	4
+# define SCENE_5	5
+
 
 # define SCENE		1
 
@@ -126,7 +128,7 @@ typedef struct	s_sdl
 	t_cam			camera;
 	t_scene			*scene;
 	t_light			*light;
-	float			closest_sphere;
+	float			closest;
 	float			dist;
 
 }				t_sdl;
@@ -174,6 +176,8 @@ void				init_scene_2(t_sdl *sdl);
 void				init_scene_3(t_sdl *sdl);
 void				init_scene_4(t_sdl *sdl);
 
+void				init_scene_5(t_sdl *sdl);
+
 int					parser_av(t_sdl *sdl, char *av);
 
 
@@ -182,7 +186,16 @@ void				help2_init_scene_1(t_object **obj);
 
 int					draw_scene(t_sdl *sdl);
 
-float		light(t_sdl *sdl, int i, t_object *obj, t_discrim tsp);
+float		light(t_sdl *sdl, int i, t_object *ret, t_discrim tsp);
+
+float	find_normal(t_object *ret, t_sdl *sdl);
+
+
+float		sphere_normal(t_object *ret, t_sdl *sdl);
+float		cylindre_normal(t_object *ret, t_sdl *sdl);
+float		plane_normal(t_object *ret, t_sdl *sdl);
+float		cone_normal(t_object *ret, t_sdl *sdl);
+
 
 unsigned int		color_test(t_color *color_obj, float value);
 

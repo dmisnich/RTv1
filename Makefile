@@ -21,6 +21,7 @@ CFLAGS = -I ./include/ -I Frameworks/SDL2.framework/Headers
 
 SRCS =	src/main.c \
 		src/help_init_scene.c \
+		src/find_obj_normal.c \
 		src/solve_discrim.c \
 		src/vector_operation.c \
 		src/ray.c \

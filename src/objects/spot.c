@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-float		light(t_sdl *sdl, int i, t_object *obj, t_discrim tsp)
+float		light(t_sdl *sdl, int i, t_object *ret, t_discrim tsp)
 {
 	t_vector p;
 	t_vector tmp;
@@ -20,9 +20,9 @@ float		light(t_sdl *sdl, int i, t_object *obj, t_discrim tsp)
 	t_vector norm;
 	t_vector oc;
 	float	m;
-	p1 = vector_mult_scal(&sdl->ray.dir, sdl->closest_sphere);
+	p1 = vector_mult_scal(&sdl->ray.dir, sdl->closest);
 	p = vector_add(&sdl->camera.cam, &p1);
-	norm = vector_sub(&p, &sdl->scene->obj[i].pos);
+	norm = vector_sub(&p, &ret->pos);
 	norm = vector_mult_scal(&norm, 1.0 / vector_len(&norm));
 	// oc = vector_sub(&sdl->camera.cam, &obj->pos);
 	// m = (vector_dot(&sdl->ray.dir, &obj->n) * tsp.x1 + vector_dot(&oc, &obj->n));
@@ -43,7 +43,7 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl)
 	i = 0;
 	res = 0.0;
 	len_norm = vector_len(norm);
-	while (i < 2)
+	while (i < 3)
 	{
 		if (sdl->light[i].type == AMBIENT)
 		{

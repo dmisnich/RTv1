@@ -45,47 +45,70 @@ int		draw_scene(t_sdl *sdl)
 	int i;
 
 	i = 0;
-	sdl->closest_sphere = INFINITY;
+	sdl->closest = INFINITY;
 	while (i < sdl->scene->max_obj)
 	{
 		if (sdl->scene->obj[i].name == SPHERE && (obj = find_sphere(&sdl->scene->obj[i], sdl)) != NULL)
 		{
-			if (sdl->closest_sphere > obj->dist)
+			if (sdl->closest > obj->dist)
 			{
-				sdl->closest_sphere = obj->dist;
+				sdl->closest = obj->dist;
 				color = obj->color;
+				ret = obj;
 			}
 		}
 		if (sdl->scene->obj[i].name == PLANE && (obj = find_plane(&sdl->scene->obj[i], sdl)) != NULL)
 		{
-		 	if (sdl->closest_sphere > obj->dist)
+		 	if (sdl->closest > obj->dist)
 			{
-				sdl->closest_sphere = obj->dist;
+				sdl->closest = obj->dist;
 				color = obj->color;
+				ret = obj;
 			}
 		}
 		if (sdl->scene->obj[i].name == CYLINDRE && (obj = find_cylindre(&sdl->scene->obj[i], sdl)) != NULL)
 		{
-			if (sdl->closest_sphere > obj->dist)
+			if (sdl->closest > obj->dist)
 			{
-				sdl->closest_sphere = obj->dist;
+				sdl->closest = obj->dist;
 				color = obj->color;
+				ret = obj;
 			}
 		}
 		if (sdl->scene->obj[i].name == CONE && (obj = find_cone(&sdl->scene->obj[i], sdl)) != NULL)
 		{
-			if (sdl->closest_sphere > obj->dist)
+			if (sdl->closest > obj->dist)
 			{
-				sdl->closest_sphere = obj->dist;
+				sdl->closest = obj->dist;
 				color = obj->color;
+				ret = obj;
 			}
 		}
 		i++;
 	}
-	if (sdl->closest_sphere == INFINITY)
+	if (sdl->closest == INFINITY)
 		return (0);
-	float cl = light(sdl, i, &sdl->scene->obj[i], tsp);
+	float cl = find_normal(ret, sdl);
 	return (color_test(&color, cl));
+}
+
+float	find_normal(t_object *ret, t_sdl *sdl)
+{
+	// t_vector p[2];
+	// t_vector norm;
+	// t_vector oc;
+	// float	m;
+	// t_vector tmp[3];
+
+	if (ret->name == SPHERE)
+		return (sphere_normal(ret, sdl));
+	if (ret->name == PLANE)
+		return (plane_normal(ret, sdl));
+	if (ret->name == CYLINDRE)
+		return (cylindre_normal(ret, sdl));
+	if (ret->name == CONE)
+		return (cone_normal(ret, sdl));
+	return (0);
 }
 
 int		ray_tracer_obj( t_sdl *sdl)
@@ -97,6 +120,8 @@ int		ray_tracer_obj( t_sdl *sdl)
 	if (sdl->scene->name == SCENE_3)
 		return (draw_scene(sdl));
 	if (sdl->scene->name == SCENE_4)
+		return (draw_scene(sdl));
+	if (sdl->scene->name == SCENE_5)
 		return (draw_scene(sdl));
 	return (0);
 }
