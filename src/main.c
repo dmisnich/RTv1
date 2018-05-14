@@ -12,22 +12,19 @@
 
 #include "rtv1.h"
 
-int		main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	t_sdl	sdl;
-	
+	t_sdl			sdl;
+
 	if (argc != 2)
 	{
 		printf("error\n");
 		return (0);
 	}
 	init_sdl(&sdl);
-	// init_camera(&sdl);
 	if (!(parser_av(&sdl, argv[1])))
 		return (0);
 	init_light(&sdl);
-
-
 	raycaster(&sdl);
 	SDL_UpdateWindowSurface(sdl.win);
 	while (1)
@@ -36,15 +33,14 @@ int		main(int argc, char **argv)
 		{
 			if (sdl.event.type == SDL_QUIT || (sdl.event.type == SDL_KEYDOWN
 				&& sdl.event.key.keysym.sym == SDLK_ESCAPE))
-				break;
+				break ;
 		}
 	}
 	SDL_DestroyWindow(sdl.win);
-	// system("leaks -q RTv1");
 	SDL_Quit();
 }
 
-int	parser_av(t_sdl *sdl, char *av)
+int					parser_av(t_sdl *sdl, char *av)
 {
 	if (!(ft_strcmp(av, "scene_1")))
 		init_scene_1(sdl);
@@ -64,12 +60,10 @@ int	parser_av(t_sdl *sdl, char *av)
 	return (1);
 }
 
-t_vector	find_ray_diraction(t_sdl *sdl, int x, int y)
+t_vector			find_ray_diraction(t_sdl *sdl, int x, int y)
 {
-	t_vector res;
+	t_vector		res;
 
-	// printf("Y: %d\n", y);
-	// printf("X: %d\n", x);
 	res.y = ((float)y) * sdl->vp.h / HEIGHT;
 	res.x = ((float)x) * sdl->vp.w / WIDTH;
 	res.z = 1.0;

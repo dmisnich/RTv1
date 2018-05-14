@@ -19,12 +19,13 @@ t_object	*find_cylindre(t_object *obj, t_sdl *sdl)
 	float		param[3];
 
 	obj->n = vector_norm(&obj->n);
-
 	sdl->ray.dir = vector_norm(&sdl->ray.dir);
-
 	oc = vector_sub(&sdl->camera.cam, &obj->pos);
-	param[0] = vector_dot(&sdl->ray.dir, &sdl->ray.dir) - pow(vector_dot(&sdl->ray.dir, &obj->n), 2);
-	param[1] = 2.0 * vector_dot(&sdl->ray.dir, &oc) - vector_dot(&sdl->ray.dir, &obj->n) * (vector_dot(&oc, &obj->n) * 2);
-	param[2] = vector_dot(&oc, &oc) - pow(vector_dot(&oc, &obj->n), 2) - pow(obj->radius, 2);
-	return (find_solve_discrim(sdl, param[0], param[1], param[2], obj));
+	param[0] = vector_dot(&sdl->ray.dir, &sdl->ray.dir)
+	- pow(vector_dot(&sdl->ray.dir, &obj->n), 2);
+	param[1] = 2.0 * vector_dot(&sdl->ray.dir, &oc)
+	- vector_dot(&sdl->ray.dir, &obj->n) * (vector_dot(&oc, &obj->n) * 2);
+	param[2] = vector_dot(&oc, &oc)
+	- pow(vector_dot(&oc, &obj->n), 2) - pow(obj->radius, 2);
+	return (find_solve_discrim(sdl, param, obj));
 }

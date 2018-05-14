@@ -12,84 +12,80 @@
 
 #include "rtv1.h"
 
-t_vector	tmp[4];
-t_vector	p[2];
-t_vector	norm;
-t_vector	oc;
-t_vector	k;
-float		m;
-float		res;
-float		dot;
+t_vector	g_tmp[4];
+t_vector	g_p[2];
+t_vector	g_norm;
+t_vector	g_oc;
+t_vector	g_k;
+float		g_m;
+float		g_res;
+float		g_dot;
 
 float		sphere_normal(t_object *ret, t_sdl *sdl)
 {
-	p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
-	p[1] = vector_add(&sdl->camera.cam, &p[0]);
-	norm = vector_sub(&p[1], &ret->pos);
-	norm = vector_mult_scal(&norm, 1.0 / vector_len(&norm));
-	norm = vector_norm(&norm);
-	dot = vector_dot(&norm, &sdl->ray.dir);
-	if (dot < 0)
-		norm = norm;
+	g_p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
+	g_p[1] = vector_add(&sdl->camera.cam, &g_p[0]);
+	g_norm = vector_sub(&g_p[1], &ret->pos);
+	g_norm = vector_mult_scal(&g_norm, 1.0 / vector_len(&g_norm));
+	g_norm = vector_norm(&g_norm);
+	g_dot = vector_dot(&g_norm, &sdl->ray.dir);
+	if (g_dot < 0)
+		g_norm = g_norm;
 	else
-		norm = vector_mult_scal(&norm, -1);
-	return (findelight(&p[1], &norm, sdl));
+		g_norm = vector_mult_scal(&g_norm, -1);
+	return (findelight(&g_p[1], &g_norm, sdl, ret));
 }
 
 float		cylindre_normal(t_object *ret, t_sdl *sdl)
 {
-	oc = vector_sub(&sdl->camera.cam, &ret->pos);
-	m = (vector_dot(&sdl->ray.dir, &ret->n) * sdl->closest) + vector_dot(&oc, &ret->n);
-	p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
-	p[1] = vector_add(&sdl->camera.cam, &p[0]);
-	tmp[0] = vector_mult_scal(&ret->n, m);
-	tmp[1] = vector_sub(&p[1], &ret->pos);
-	tmp[2] = vector_sub(&tmp[0], &tmp[1]);
-	norm = vector_norm(&tmp[2]);
-	norm = vector_mult_scal(&norm, -1);
-	dot = vector_dot(&norm, &sdl->ray.dir);
-	if (dot < 0)
-		norm = norm;
+	g_oc = vector_sub(&sdl->camera.cam, &ret->pos);
+	g_m = (vector_dot(&sdl->ray.dir, &ret->n) * sdl->closest)
+	+ vector_dot(&g_oc, &ret->n);
+	g_p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
+	g_p[1] = vector_add(&sdl->camera.cam, &g_p[0]);
+	g_tmp[0] = vector_mult_scal(&ret->n, g_m);
+	g_tmp[1] = vector_sub(&g_p[1], &ret->pos);
+	g_tmp[2] = vector_sub(&g_tmp[0], &g_tmp[1]);
+	g_norm = vector_norm(&g_tmp[2]);
+	g_norm = vector_mult_scal(&g_norm, -1);
+	g_dot = vector_dot(&g_norm, &sdl->ray.dir);
+	if (g_dot < 0)
+		g_norm = g_norm;
 	else
-		norm = vector_mult_scal(&norm, -1);
-	return (findelight(&p[1], &norm, sdl));
+		g_norm = vector_mult_scal(&g_norm, -1);
+	return (findelight(&g_p[1], &g_norm, sdl, ret));
 }
 
 float		plane_normal(t_object *ret, t_sdl *sdl)
 {
-	p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
-	p[1] = vector_add(&sdl->camera.cam, &p[0]);
-	norm = vector_norm(&ret->n);
-	dot = vector_dot(&norm, &sdl->ray.dir);
-	if (dot < 0)
-		norm = norm;
+	g_p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
+	g_p[1] = vector_add(&sdl->camera.cam, &g_p[0]);
+	g_norm = vector_norm(&ret->n);
+	g_dot = vector_dot(&g_norm, &sdl->ray.dir);
+	if (g_dot < 0)
+		g_norm = g_norm;
 	else
-		norm = vector_mult_scal(&norm, -1);
-	return (findelight(&p[1], &norm, sdl));
+		g_norm = vector_mult_scal(&g_norm, -1);
+	return (findelight(&g_p[1], &g_norm, sdl, ret));
 }
 
 float		cone_normal(t_object *ret, t_sdl *sdl)
 {
-	oc = vector_sub(&sdl->camera.cam, &ret->pos);
-	m = (vector_dot(&sdl->ray.dir, &ret->n) * sdl->closest) + vector_dot(&oc, &ret->n);
-
-	//psrt 1
-
-	p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
-	p[1] = vector_add(&sdl->camera.cam, &p[0]);
-
-	//part 2
-
-	res = 1 + pow(ret->tan, 2);
-	tmp[0] = vector_mult_scal(&ret->n, m);
-	tmp[1] = vector_mult_scal(&tmp[0], res);
-	tmp[2] = vector_sub(&p[1], &ret->pos);
-	norm = vector_sub(&tmp[2], &tmp[1]);
-	norm = vector_norm(&norm);
-	dot = vector_dot(&norm, &sdl->ray.dir);
-	if (dot < 0)
-		norm = norm;
+	g_oc = vector_sub(&sdl->camera.cam, &ret->pos);
+	g_m = (vector_dot(&sdl->ray.dir, &ret->n) * sdl->closest)
+	+ vector_dot(&g_oc, &ret->n);
+	g_p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);
+	g_p[1] = vector_add(&sdl->camera.cam, &g_p[0]);
+	g_res = 1 + pow(ret->tan, 2);
+	g_tmp[0] = vector_mult_scal(&ret->n, g_m);
+	g_tmp[1] = vector_mult_scal(&g_tmp[0], g_res);
+	g_tmp[2] = vector_sub(&g_p[1], &ret->pos);
+	g_norm = vector_sub(&g_tmp[2], &g_tmp[1]);
+	g_norm = vector_norm(&g_norm);
+	g_dot = vector_dot(&g_norm, &sdl->ray.dir);
+	if (g_dot < 0)
+		g_norm = g_norm;
 	else
-		norm = vector_mult_scal(&norm, -1);
-	return (findelight(&p[1], &norm, sdl));
+		g_norm = vector_mult_scal(&g_norm, -1);
+	return (findelight(&g_p[1], &g_norm, sdl, ret));
 }

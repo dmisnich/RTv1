@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   vector_operation2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmisnich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/11 11:13:44 by dmisnich          #+#    #+#             */
-/*   Updated: 2018/04/11 11:13:46 by dmisnich         ###   ########.fr       */
+/*   Created: 2018/05/14 11:06:57 by dmisnich          #+#    #+#             */
+/*   Updated: 2018/05/14 11:06:59 by dmisnich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_object	*find_sphere(t_object *obj, t_sdl *sdl)
+t_vector		vector_div(t_vector *v, float value)
 {
-	t_discrim	tsp;
-	t_vector	oc;
-	float		discrim;
-	float		param[3];
+	t_vector	res;
 
-	oc = vector_sub(&sdl->camera.cam, &obj->pos);
-	param[0] = vector_dot(&sdl->ray.dir, &sdl->ray.dir);
-	param[1] = 2 * vector_dot(&oc, &sdl->ray.dir);
-	param[2] = vector_dot(&oc, &oc) - obj->radius * obj->radius;
-	return (find_solve_discrim(sdl, param, obj));
+	res.x = v->x / value;
+	res.y = v->y / value;
+	res.z = v->z / value;
+	return (res);
+}
+
+t_vector		vector_norm(t_vector *v)
+{
+	return (vector_div(v, vector_len(v)));
+}
+
+float			vector_dot(t_vector *v1, t_vector *v2)
+{
+	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
+}
+
+float			vector_len(t_vector *v)
+{
+	return (sqrt(vector_dot(v, v)));
 }

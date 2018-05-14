@@ -102,6 +102,7 @@ typedef	struct	s_object
 	t_color		color;
 	t_vector	pos;
 	t_vector	n;
+	float			specular;
 }				t_object;
 
 // typedef struct	s_list
@@ -130,7 +131,6 @@ typedef struct	s_sdl
 	t_light			*light;
 	float			closest;
 	float			dist;
-
 }				t_sdl;
 
 void				init_camera(t_sdl *sdl);
@@ -163,10 +163,10 @@ float				vector_len(t_vector *v);
 
 unsigned int		color(t_sdl *sdl, int i, float value);
 unsigned int		color_p(t_sdl *sdl);
-float				findelight(t_vector *p, t_vector *norm, t_sdl *sdl);
+float				findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret);
 void				init_light(t_sdl *sdl);
 
-t_object			*find_solve_discrim(t_sdl *sdl, float a, float b, float c, t_object *obj);
+t_object	*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj);
 
 
 void				init_scene(t_sdl *sdl);

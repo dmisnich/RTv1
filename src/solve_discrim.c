@@ -12,19 +12,20 @@
 
 #include "rtv1.h"
 
-t_object	*find_solve_discrim(t_sdl *sdl, float a, float b, float c, t_object *obj)
+t_object		*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj)
 {
 	t_discrim	tsp;
 	float		discrim;
 
-	discrim = (b * b) - (4 * a * c);
+	discrim = (param[1] * param[1]) - (4 * param[0] * param[2]);
 	if (discrim < 0 && discrim > -0.0001)
- 		discrim = 0;
+		discrim = 0;
 	if (discrim >= 0)
 	{
-		if ((tsp.x1 = (-b + sqrtf(discrim)) / (2.0 * a)))
+		if ((tsp.x1 = (-param[1] + sqrtf(discrim)) / (2.0 * param[0])))
 			obj->dist = tsp.x1;
-		if ((tsp.x2 = (-b - sqrtf(discrim)) / (2.0 * a)) && tsp.x2 < tsp.x1)
+		if ((tsp.x2 = (-param[1] - sqrtf(discrim)) / (2.0 * param[0]))
+			&& tsp.x2 < tsp.x1)
 			obj->dist = tsp.x2;
 		if (tsp.x1 < 0 && tsp.x2 < 0)
 			return (NULL);

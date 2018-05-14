@@ -24,6 +24,7 @@ SRCS =	src/main.c \
 		src/find_obj_normal.c \
 		src/solve_discrim.c \
 		src/vector_operation.c \
+		src/vector_operation2.c \
 		src/ray.c \
 		src/init.c \
 		src/objects/spot.c \
@@ -58,6 +59,7 @@ $(NAME): $(OBJ)
 clean:
 	@make -C $(LFT_DIR) clean
 	@rm -f src/*.o
+	@rm -f src/objects/*.o
 	@rm -rf ./*.dSYM
 
 norme:
