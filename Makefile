@@ -14,7 +14,7 @@ NAME = RTv1
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O3
 
 CFLAGS = -I ./include/ -I Frameworks/SDL2.framework/Headers
 
@@ -26,6 +26,7 @@ SRCS =	src/main.c \
 		src/vector_operation.c \
 		src/vector_operation2.c \
 		src/ray.c \
+		src/key.c \
 		src/init.c \
 		src/objects/spot.c \
 		src/objects/sphere.c \

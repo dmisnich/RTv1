@@ -18,7 +18,7 @@ t_object		*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj)
 	float		discrim;
 
 	discrim = (param[1] * param[1]) - (4 * param[0] * param[2]);
-	if (discrim < 0 && discrim > -0.0001)
+	if (discrim < 0 && discrim > -0.001)
 		discrim = 0;
 	if (discrim >= 0)
 	{

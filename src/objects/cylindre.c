@@ -14,7 +14,6 @@
 
 t_object	*find_cylindre(t_object *obj, t_sdl *sdl)
 {
-	t_discrim	tsp;
 	t_vector	oc;
 	float		param[3];
 

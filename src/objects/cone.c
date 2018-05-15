@@ -14,7 +14,6 @@
 
 t_object		*find_cone(t_object *obj, t_sdl *sdl)
 {
-	t_discrim	tsp;
 	t_vector	oc;
 	float		discrim;
 	float		param[3];

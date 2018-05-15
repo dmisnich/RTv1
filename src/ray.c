@@ -38,7 +38,6 @@ void				raycaster(t_sdl *sdl)
 
 int				draw_scene(t_sdl *sdl)
 {
-	t_discrim	tsp;
 	t_object	*obj;
 	t_object	*ret;
 	t_color		color;

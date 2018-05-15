@@ -32,6 +32,12 @@
 # define SCENE_4	4
 # define SCENE_5	5
 
+# define UP			1
+# define DOWN		2
+# define LEFT		3
+# define RIGHT		4
+# define PLUS		5
+# define MINUS		6
 
 # define SCENE		1
 
@@ -105,12 +111,6 @@ typedef	struct	s_object
 	float			specular;
 }				t_object;
 
-// typedef struct	s_list
-// {
-// 	t_object		*obj;
-// 	struct s_list	*next;
-// }				t_list;
-
 typedef struct	s_scene
 {
 	t_object	*obj;
@@ -131,6 +131,7 @@ typedef struct	s_sdl
 	t_light			*light;
 	float			closest;
 	float			dist;
+	int				done;
 }				t_sdl;
 
 void				init_camera(t_sdl *sdl);
@@ -196,6 +197,8 @@ float		cylindre_normal(t_object *ret, t_sdl *sdl);
 float		plane_normal(t_object *ret, t_sdl *sdl);
 float		cone_normal(t_object *ret, t_sdl *sdl);
 
+void				cam_move(t_sdl *sdl, int hook);
+void				key(t_sdl *sdl, const Uint8	*keykey);
 
 unsigned int		color_test(t_color *color_obj, float value);
 
