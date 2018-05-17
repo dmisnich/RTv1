@@ -19,8 +19,6 @@
 # define POINT		2
 # define DIR		3
 
-// # define RDIST		sdl->plane[0].dist
-
 # define SPHERE		1
 # define PLANE		2
 # define CYLINDRE   3
@@ -43,7 +41,6 @@
 
 # define DIST		sdl->dist
 
-
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -53,72 +50,79 @@
 # include "../Frameworks/SDL2.framework/Headers/SDL.h"
 
 
-
-typedef struct	s_color
+typedef struct		s_color
 {
-	int			r;
-	int			g;
-	int			b;
-}				t_color;
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
 
-typedef struct s_discrim
+typedef struct		s_discrim
 {
-	float		x1;
-	float		x2;
-}				t_discrim;
+	float			x1;
+	float			x2;
+}					t_discrim;
 
-typedef	struct s_vector
+typedef	struct		s_vector
 {
-	float		x;
-	float		y;
-	float		z;
-}				t_vector;
+	float			x;
+	float			y;
+	float			z;
+}					t_vector;
 
-typedef struct s_light
+typedef struct	s_shadow
 {
-	int			type;
-	float		intensity;
-	t_vector	pos;
-	t_vector	dir;
-}				t_light;
+	t_vector pos;
+	t_vector dir;
+}				t_shadow;
 
-typedef struct s_viewport
+typedef struct		s_light
 {
-	float		h;
-	float		w;
-	float		dist;	
-}				t_viewport;
+	int				type;
+	float			intensity;
+	t_vector		pos;
+	t_vector		dir;
+	t_shadow		shadow;
+}					t_light;
 
-typedef	struct	s_cam
+typedef struct		s_viewport
 {
-	t_vector	cam;
-}				t_cam;
+	float			h;
+	float			w;
+	float			dist;
+}					t_viewport;
 
-typedef	struct	s_ray
+typedef	struct		s_cam
 {
-	t_vector	dir;
-}				t_ray;
+	t_vector		cam;
+}					t_cam;
 
-typedef	struct	s_object
+typedef	struct		s_ray
 {
-	float		radius;
-	float		tan;
-	float		dist;
-	int			name;
-	t_color		color;
-	t_vector	pos;
-	t_vector	n;
+	t_vector		pos;
+	t_vector		dir;
+}					t_ray;
+
+typedef	struct		s_object
+{
+	float			radius;
+	float			tan;
+	float			dist;
+	int				name;
+	t_color			color;
+	t_vector		pos;
+	t_vector		n;
 	float			specular;
-}				t_object;
+}					t_object;
 
-typedef struct	s_scene
+typedef struct		s_scene
 {
-	t_object	*obj;
-	int			name;
-	int			max_obj;
-}				t_scene;
+	t_object		*obj;
+	int				name;
+	int				max_obj;
+}					t_scene;
 
-typedef struct	s_sdl
+typedef struct		s_sdl
 {
 	SDL_Window		*win;
 	SDL_Surface		*surface;
@@ -132,7 +136,8 @@ typedef struct	s_sdl
 	float			closest;
 	float			dist;
 	int				done;
-}				t_sdl;
+	t_discrim		ts;
+}					t_sdl;
 
 void				init_camera(t_sdl *sdl);
 void				init_sdl(t_sdl *sdl);
@@ -145,12 +150,12 @@ t_vector			find_ray_diraction(t_sdl *sdl, int x, int y);
 
 int					parse_obj(t_sdl *sdl);
 
-int					ray_tracer_obj( t_sdl *sdl);
+int					ray_tracer_obj(t_sdl *sdl);
 
-t_object			*find_sphere(t_object *obj, t_sdl *sdl);
-t_object			*find_cylindre(t_object *obj, t_sdl *sdl);
-t_object			*find_cone(t_object *obj, t_sdl *sdl);
-t_object			*find_plane(t_object *obj, t_sdl *sdl);
+t_object			*find_sphere(t_object *obj, t_ray *ray);
+t_object			*find_cylindre(t_object *obj, t_ray *ray);
+t_object			*find_cone(t_object *obj, t_ray *ray);
+t_object			*find_plane(t_object *obj, t_ray *ray);
 
 t_vector			vector_sub(t_vector *v1, t_vector *v2);
 t_vector			vector_add(t_vector *v1, t_vector *v2);
@@ -164,11 +169,11 @@ float				vector_len(t_vector *v);
 
 unsigned int		color(t_sdl *sdl, int i, float value);
 unsigned int		color_p(t_sdl *sdl);
-float				findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret);
+float				findelight(t_vector *p, t_vector *norm,
+					t_sdl *sdl, t_object *ret);
 void				init_light(t_sdl *sdl);
 
-t_object	*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj);
-
+t_object			*find_solve_discrim(float *param, t_object *obj);
 
 void				init_scene(t_sdl *sdl);
 
@@ -181,26 +186,26 @@ void				init_scene_5(t_sdl *sdl);
 
 int					parser_av(t_sdl *sdl, char *av);
 
-
 void				help1_init_scene_1(t_object **obj);
 void				help2_init_scene_1(t_object **obj);
 
 int					draw_scene(t_sdl *sdl);
 
-float		light(t_sdl *sdl, int i, t_object *ret, t_discrim tsp);
+float				light(t_sdl *sdl, int i, t_object *ret, t_discrim tsp);
 
-float	find_normal(t_object *ret, t_sdl *sdl);
+float				find_normal(t_object *ret, t_sdl *sdl);
 
-
-float		sphere_normal(t_object *ret, t_sdl *sdl);
-float		cylindre_normal(t_object *ret, t_sdl *sdl);
-float		plane_normal(t_object *ret, t_sdl *sdl);
-float		cone_normal(t_object *ret, t_sdl *sdl);
+float				sphere_normal(t_object *ret, t_sdl *sdl);
+float				cylindre_normal(t_object *ret, t_sdl *sdl);
+float				plane_normal(t_object *ret, t_sdl *sdl);
+float				cone_normal(t_object *ret, t_sdl *sdl);
 
 void				cam_move(t_sdl *sdl, int hook);
 void				key(t_sdl *sdl, const Uint8	*keykey);
 
 unsigned int		color_test(t_color *color_obj, float value);
 
-#endif
+int			shadow(t_sdl *sdl, t_light *light, t_vector *p);
+int			shadow_light(t_sdl *sdl, int len, t_light *light, t_vector *p);
 
+#endif

@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_object		*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj)
+t_object		*find_solve_discrim(float *param, t_object *obj)
 {
 	t_discrim	tsp;
 	float		discrim;
@@ -29,6 +29,10 @@ t_object		*find_solve_discrim(t_sdl *sdl, float *param, t_object *obj)
 			obj->dist = tsp.x2;
 		if (tsp.x1 < 0 && tsp.x2 < 0)
 			return (NULL);
+		if (tsp.x1 < 0 && tsp.x2 > 0)
+			obj->dist = tsp.x2;
+		else if (tsp.x1 > 0 && tsp.x2 < 0)
+			obj->dist = tsp.x1;
 		return (obj);
 	}
 	return (NULL);

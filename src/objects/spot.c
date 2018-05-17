@@ -22,6 +22,67 @@ t_vector	g_r[4];
 t_vector	g_l;
 t_vector	g_v;
 
+int			shadow(t_sdl *sdl, t_light *light, t_vector *p)
+{
+	float	len;
+
+	sdl->light->shadow.pos = light->dir;;
+	sdl->light->shadow.dir = vector_sub(&light->pos, &sdl->light->shadow.pos);
+	len = vector_len(&sdl->light->shadow.dir);
+	sdl->light->shadow.dir = vector_norm(&sdl->light->shadow.dir);
+	return (shadow_light(sdl, len, light, p));
+}
+
+int			shadow_light(t_sdl *sdl, int len, t_light *light, t_vector *p)
+{
+	t_object	*obj;
+	t_object	*ret;
+	t_ray		ray;
+	int			i;
+
+	i = 0;
+	ray.dir = vector_sub(&light->pos, p);
+	ray.dir = vector_norm(&ray.dir);
+	ray.pos = vector_mult_scal(&ray.dir, 0.001);
+	ray.pos = vector_add(&ray.pos, p);
+	// printf("x: %f y: %f z: %f\n", ray.dir.x, ray.dir.y, ray.dir.z);
+	sdl->closest = INFINITY;
+	while (i < sdl->scene->max_obj)
+	{
+		if (sdl->scene->obj[i].name == SPHERE &&
+			(obj = find_sphere(&sdl->scene->obj[i], &ray)) != NULL)
+		{
+			if (sdl->closest > obj->dist)
+			{
+				sdl->closest = obj->dist;
+				ret = obj;
+			}
+		}
+		if (sdl->scene->obj[i].name == CYLINDRE &&
+			(obj = find_cylindre(&sdl->scene->obj[i], &ray)) != NULL)
+		{
+			if (sdl->closest > obj->dist)
+			{
+				sdl->closest = obj->dist;
+				ret = obj;
+			}
+		}
+		if (sdl->scene->obj[i].name == CONE &&
+			(obj = find_cone(&sdl->scene->obj[i], &ray)) != NULL)
+		{
+			if (sdl->closest > obj->dist)
+			{
+				sdl->closest = obj->dist;
+				ret = obj;
+			}
+		}
+		i++;
+	}
+	if (sdl->closest > 0 && sdl->closest < len)
+		return (0);
+	return (1);
+}
+
 float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 {
 	float cos;
@@ -41,12 +102,14 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 			if (sdl->light[g_i].type == POINT)
 			{
 				g_l = vector_sub(&sdl->light[g_i].pos, p);
-				// cos = vector_dot(g_l.dir, norm);
-				// printf("cos: %f\n", cos);
-				
 			}
 			else
 				g_l = sdl->light[g_i].pos;
+			if (!shadow(sdl, &sdl->light[g_i], p))
+			{
+				g_i++;
+				continue ;
+			}
 			g_n_dot = vector_dot(norm, &g_l);
 			if (g_n_dot > 0)
 				g_res += (sdl->light[g_i].intensity * g_n_dot) /
@@ -65,5 +128,6 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 		}
 		g_i++;
 	}
+	// printf("res: %f\n", g_res);
 	return (g_res);
 }

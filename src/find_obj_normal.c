@@ -29,7 +29,7 @@ float		sphere_normal(t_object *ret, t_sdl *sdl)
 	g_norm = vector_mult_scal(&g_norm, 1.0 / vector_len(&g_norm));
 	g_norm = vector_norm(&g_norm);
 	g_dot = vector_dot(&g_norm, &sdl->ray.dir);
-	if (g_dot > 0)
+	if (g_dot < 0)
 		g_norm = g_norm;
 	else
 		g_norm = vector_mult_scal(&g_norm, -1);

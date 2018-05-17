@@ -27,10 +27,12 @@ int					main(int argc, char **argv)
 	init_sdl(&sdl);
 	init_light(&sdl);
 	keykey = SDL_GetKeyboardState(NULL);
+	raycaster(&sdl);
+	SDL_UpdateWindowSurface(sdl.win);
 	while (!sdl.done)
 	{
-		raycaster(&sdl);
-		SDL_UpdateWindowSurface(sdl.win);
+		// raycaster(&sdl);
+		// SDL_UpdateWindowSurface(sdl.win);
 		SDL_PollEvent(&sdl.event);
 		key(&sdl, keykey);
 	}

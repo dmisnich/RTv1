@@ -41,14 +41,17 @@ int				draw_scene(t_sdl *sdl)
 	t_object	*obj;
 	t_object	*ret;
 	t_color		color;
+	t_ray		ray;
 	int			i;
 
 	i = 0;
+	ray.pos = sdl->camera.cam;
+	ray.dir = sdl->ray.dir;
 	sdl->closest = INFINITY;
 	while (i < sdl->scene->max_obj)
 	{
 		if (sdl->scene->obj[i].name == SPHERE &&
-			(obj = find_sphere(&sdl->scene->obj[i], sdl)) != NULL)
+			(obj = find_sphere(&sdl->scene->obj[i], &ray)) != NULL)
 		{
 			if (sdl->closest > obj->dist)
 			{
@@ -58,7 +61,7 @@ int				draw_scene(t_sdl *sdl)
 			}
 		}
 		if (sdl->scene->obj[i].name == PLANE &&
-			(obj = find_plane(&sdl->scene->obj[i], sdl)) != NULL)
+			(obj = find_plane(&sdl->scene->obj[i], &ray)) != NULL)
 		{
 			if (sdl->closest > obj->dist)
 			{
@@ -68,7 +71,7 @@ int				draw_scene(t_sdl *sdl)
 			}
 		}
 		if (sdl->scene->obj[i].name == CYLINDRE &&
-			(obj = find_cylindre(&sdl->scene->obj[i], sdl)) != NULL)
+			(obj = find_cylindre(&sdl->scene->obj[i], &ray)) != NULL)
 		{
 			if (sdl->closest > obj->dist)
 			{
@@ -78,7 +81,7 @@ int				draw_scene(t_sdl *sdl)
 			}
 		}
 		if (sdl->scene->obj[i].name == CONE &&
-			(obj = find_cone(&sdl->scene->obj[i], sdl)) != NULL)
+			(obj = find_cone(&sdl->scene->obj[i], &ray)) != NULL)
 		{
 			if (sdl->closest > obj->dist)
 			{

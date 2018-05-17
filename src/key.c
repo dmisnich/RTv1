@@ -21,34 +21,38 @@ void				key(t_sdl *sdl, const Uint8	*keykey)
 		&& sdl->event.key.keysym.sym == SDLK_ESCAPE))
 		sdl->done = 1;
 		
-	if (keykey[SDL_SCANCODE_UP])
+	else if (keykey[SDL_SCANCODE_UP])
 	{
 		hook = UP;
 		cam_move(sdl, hook);
 	}
-	if (keykey[SDL_SCANCODE_DOWN])
+	else if (keykey[SDL_SCANCODE_DOWN])
 	{
 		hook = DOWN;
 		cam_move(sdl, hook);
 	}
-	if (keykey[SDL_SCANCODE_RIGHT])
+	else if (keykey[SDL_SCANCODE_RIGHT])
 	{
 		hook = RIGHT;
 		cam_move(sdl, hook);
 	}
-	if (keykey[SDL_SCANCODE_LEFT])
+	else if (keykey[SDL_SCANCODE_LEFT])
 	{
 		hook = LEFT;
 		cam_move(sdl, hook);
 	}
-	if (keykey[SDL_SCANCODE_R])
+	else if (keykey[SDL_SCANCODE_R])
 	{
 		hook = PLUS;
 		cam_move(sdl, hook);
 	}
-	if (keykey[SDL_SCANCODE_E])
+	else if (keykey[SDL_SCANCODE_E])
 	{
 		hook = MINUS;
 		cam_move(sdl, hook);
 	}
+	else
+		return ;
+	raycaster(sdl);
+	SDL_UpdateWindowSurface(sdl->win);
 }
