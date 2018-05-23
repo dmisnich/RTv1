@@ -21,6 +21,19 @@ float		g_m;
 float		g_res;
 float		g_dot;
 
+float		find_normal(t_object *ret, t_sdl *sdl)
+{
+	if (ret->name == SPHERE)
+		return (sphere_normal(ret, sdl));
+	if (ret->name == PLANE)
+		return (plane_normal(ret, sdl));
+	if (ret->name == CYLINDRE)
+		return (cylindre_normal(ret, sdl));
+	if (ret->name == CONE)
+		return (cone_normal(ret, sdl));
+	return (0);
+}
+
 float		sphere_normal(t_object *ret, t_sdl *sdl)
 {
 	g_p[0] = vector_mult_scal(&sdl->ray.dir, sdl->closest);

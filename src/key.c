@@ -12,13 +12,13 @@
 
 #include "rtv1.h"
 
-void				key(t_sdl *sdl, const Uint8	*keykey)
+void			key_1(t_sdl *sdl, const Uint8 *keykey)
 {
-	int				hook;
+	int			hook;
 
 	hook = 0;
 	if (sdl->event.type == SDL_QUIT || (sdl->event.type == SDL_KEYDOWN
-		&& sdl->event.key.keysym.sym == SDLK_ESCAPE))
+	&& sdl->event.key.keysym.sym == SDLK_ESCAPE))
 		sdl->done = 1;
 	else if (keykey[SDL_SCANCODE_UP])
 	{
@@ -35,7 +35,18 @@ void				key(t_sdl *sdl, const Uint8	*keykey)
 		hook = RIGHT;
 		cam_move(sdl, hook);
 	}
-	else if (keykey[SDL_SCANCODE_LEFT])
+	else
+		return ;
+	raycaster(sdl);
+	SDL_UpdateWindowSurface(sdl->win);
+}
+
+void			key_2(t_sdl *sdl, const Uint8 *keykey)
+{
+	int			hook;
+
+	hook = 0;
+	if (keykey[SDL_SCANCODE_LEFT])
 	{
 		hook = LEFT;
 		cam_move(sdl, hook);
@@ -54,4 +65,20 @@ void				key(t_sdl *sdl, const Uint8	*keykey)
 		return ;
 	raycaster(sdl);
 	SDL_UpdateWindowSurface(sdl->win);
+}
+
+void			cam_move(t_sdl *sdl, int hook)
+{
+	if (hook == UP)
+		sdl->camera.cam.y = sdl->camera.cam.y + 0.5;
+	if (hook == DOWN)
+		sdl->camera.cam.y = sdl->camera.cam.y - 0.5;
+	if (hook == LEFT)
+		sdl->camera.cam.x = sdl->camera.cam.x - 0.5;
+	if (hook == RIGHT)
+		sdl->camera.cam.x = sdl->camera.cam.x + 0.5;
+	if (hook == PLUS)
+		sdl->camera.cam.z = sdl->camera.cam.z + 0.5;
+	if (hook == MINUS)
+		sdl->camera.cam.z = sdl->camera.cam.z - 0.5;
 }

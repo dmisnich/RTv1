@@ -32,29 +32,12 @@ int					main(int argc, char **argv)
 	SDL_UpdateWindowSurface(sdl.win);
 	while (!sdl.done)
 	{
-		// raycaster(&sdl);
-		// SDL_UpdateWindowSurface(sdl.win);
 		SDL_PollEvent(&sdl.event);
-		key(&sdl, keykey);
+		key_1(&sdl, keykey);
+		key_2(&sdl, keykey);
 	}
 	SDL_DestroyWindow(sdl.win);
 	SDL_Quit();
-}
-
-void				cam_move(t_sdl *sdl, int hook)
-{
-	if (hook == UP)
-		sdl->camera.cam.y = sdl->camera.cam.y + 0.5;
-	if (hook == DOWN)
-		sdl->camera.cam.y = sdl->camera.cam.y - 0.5;
-	if (hook == LEFT)
-		sdl->camera.cam.x = sdl->camera.cam.x - 0.5;
-	if (hook == RIGHT)
-		sdl->camera.cam.x = sdl->camera.cam.x + 0.5;
-	if (hook == PLUS)
-		sdl->camera.cam.z = sdl->camera.cam.z + 0.5;
-	if (hook == MINUS)
-		sdl->camera.cam.z = sdl->camera.cam.z - 0.5;
 }
 
 int					parser_av(t_sdl *sdl, char *av)
@@ -86,34 +69,4 @@ t_vector			find_ray_diraction(t_sdl *sdl, int x, int y)
 	res.z = 1.0;
 	res = vector_norm(&res);
 	return (res);
-}
-
-unsigned int		color_test(t_color *color_obj, float value)
-{
-	t_color			color;
-	unsigned int	c;
-
-	color.r = color_obj->r * value;
-	color.g = color_obj->g * value;
-	color.b = color_obj->b * value;
-	if (color.r > 255)
-		color.r = 255;
-	if (color.g > 255)
-		color.g = 255;
-	if (color.b > 255)
-		color.b = 255;
-	c = (color.r << 16) + (color.g << 8) + color.b;
-	return (c);
-}
-
-unsigned int		color(t_sdl *sdl, int i, float value)
-{
-	t_color			color;
-	unsigned int	c;
-
-	color.r = sdl->scene->obj[i].color.r * value;
-	color.g = sdl->scene->obj[i].color.g * value;
-	color.b = sdl->scene->obj[i].color.b * value;
-	c = (color.r << 16) + (color.g << 8) + color.b;
-	return (c);
 }

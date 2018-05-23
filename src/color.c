@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   protect.c                                          :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmisnich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/23 11:15:29 by dmisnich          #+#    #+#             */
-/*   Updated: 2018/05/23 11:15:31 by dmisnich         ###   ########.fr       */
+/*   Created: 2018/05/23 14:56:47 by dmisnich          #+#    #+#             */
+/*   Updated: 2018/05/23 14:56:49 by dmisnich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		protect_obj(t_sdl *sdl)
+unsigned int		color_test(t_color *color_obj, float value)
 {
-	int		i;
+	t_color			color;
+	unsigned int	c;
 
-	i = 0;
-	while (i < sdl->scene->max_obj)
-	{
-		if (sdl->scene->obj[i].tan > 1.0)
-			sdl->scene->obj[i].tan = 1.0;
-		if (sdl->scene->obj[i].tan < -1.0)
-			sdl->scene->obj[i].tan = -1.0;
-		if (sdl->scene->obj[i].specular < 1)
-			sdl->scene->obj[i].specular = 1;
-		i++;
-	}
+	color.r = color_obj->r * value;
+	color.g = color_obj->g * value;
+	color.b = color_obj->b * value;
+	if (color.r > 255)
+		color.r = 255;
+	if (color.g > 255)
+		color.g = 255;
+	if (color.b > 255)
+		color.b = 255;
+	c = (color.r << 16) + (color.g << 8) + color.b;
+	return (c);
 }

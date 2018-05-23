@@ -26,6 +26,7 @@ SRCS =	src/main.c \
 		src/vector_operation.c \
 		src/vector_operation2.c \
 		src/protect.c \
+		src/color.c \
 		src/ray.c \
 		src/key.c \
 		src/init.c \

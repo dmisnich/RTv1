@@ -20,7 +20,7 @@ void	init_scene_1(t_sdl *sdl)
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_1;
-	sdl->scene->max_obj = 5;
+	sdl->scene->max_obj = 4;
 	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 6);
 	help1_init_scene_1(&sdl->scene->obj);
 	help2_init_scene_1(&sdl->scene->obj);
@@ -30,7 +30,7 @@ void	init_scene_2(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
 	sdl->camera.cam.y = 1.0;
-	sdl->camera.cam.z = -600.0;
+	sdl->camera.cam.z = -60.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_2;
@@ -48,10 +48,10 @@ void	init_scene_2(t_sdl *sdl)
 	sdl->scene->obj[0].color.r = 255;
 	sdl->scene->obj[0].color.g = 0;
 	sdl->scene->obj[0].color.b = 255;
-	sdl->scene->obj[0].specular = 500;
+	sdl->scene->obj[0].specular = 100;
 
 	sdl->scene->obj[1].name = CONE;
-	sdl->scene->obj[1].tan = -200000.5;
+	sdl->scene->obj[1].tan = -0.4;
 	sdl->scene->obj[1].pos.x = 0.0;
 	sdl->scene->obj[1].pos.y = 0.0;
 	sdl->scene->obj[1].pos.z = -10.0;
@@ -61,7 +61,7 @@ void	init_scene_2(t_sdl *sdl)
 	sdl->scene->obj[1].color.r = 255;
 	sdl->scene->obj[1].color.g = 0;
 	sdl->scene->obj[1].color.b = 255;
-	sdl->scene->obj[1].specular = 500;
+	sdl->scene->obj[1].specular = 100;
 
 	sdl->scene->obj[2].name = PLANE;
 	sdl->scene->obj[2].pos.x = 0.0;
@@ -114,7 +114,7 @@ void	init_scene_4(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
 	sdl->camera.cam.y = 1.0;
-	sdl->camera.cam.z = -10.0;
+	sdl->camera.cam.z = -40.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_4;
@@ -238,10 +238,16 @@ void	init_light(t_sdl *sdl)
 	sdl->light[0].intensity = 0.2;
 
 	sdl->light[1].type = POINT;
-	sdl->light[1].intensity = 0.6;
-	sdl->light[1].pos.x = -2.0;
+	sdl->light[1].intensity = 0.4;
+	sdl->light[1].pos.x = -10.0;
 	sdl->light[1].pos.y = 1.0;
-	sdl->light[1].pos.z = -40.0;
+	sdl->light[1].pos.z = -11.0;
+
+	sdl->light[2].type = POINT;
+	sdl->light[2].intensity = 0.4;
+	sdl->light[2].pos.x = 0.0;
+	sdl->light[2].pos.y = 0.0;
+	sdl->light[2].pos.z = -30.0;
 
 }
 

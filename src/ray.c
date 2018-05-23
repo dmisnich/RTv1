@@ -12,6 +12,8 @@
 
 #include "rtv1.h"
 
+int					g_iter;
+
 void				raycaster(t_sdl *sdl)
 {
 	int				x;
@@ -36,81 +38,80 @@ void				raycaster(t_sdl *sdl)
 	}
 }
 
-int				draw_scene(t_sdl *sdl)
+int					draw_scene(t_sdl *sdl)
 {
-	t_object	*obj;
-	t_object	*ret;
-	t_color		color;
-	t_ray		ray;
-	int			i;
+	t_object		*obj;
+	t_object		*ret;
+	t_ray			ray;
 
-	i = 0;
+	g_iter = 0;
 	ray.pos = sdl->camera.cam;
 	ray.dir = sdl->ray.dir;
 	sdl->closest = INFINITY;
-	while (i < sdl->scene->max_obj)
+	while (g_iter < sdl->scene->max_obj)
 	{
-		if (sdl->scene->obj[i].name == SPHERE &&
-			(obj = find_sphere(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				color = obj->color;
-				ret = obj;
-			}
-		}
-		if (sdl->scene->obj[i].name == PLANE &&
-			(obj = find_plane(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				color = obj->color;
-				ret = obj;
-			}
-		}
-		if (sdl->scene->obj[i].name == CYLINDRE &&
-			(obj = find_cylindre(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				color = obj->color;
-				ret = obj;
-			}
-		}
-		if (sdl->scene->obj[i].name == CONE &&
-			(obj = find_cone(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				color = obj->color;
-				ret = obj;
-			}
-		}
-		i++;
+		ret = scene_calc_obj_one(sdl, &ray, obj, ret);
+		ret = scene_calc_obj_two(sdl, &ray, obj, ret);
+		g_iter++;
 	}
 	if (sdl->closest == INFINITY)
 		return (0);
-	return (color_test(&color, find_normal(ret, sdl)));
+	return (color_test(&sdl->color, find_normal(ret, sdl)));
 }
 
-float			find_normal(t_object *ret, t_sdl *sdl)
+t_object			*scene_calc_obj_two(t_sdl *sdl, t_ray *ray,
+	t_object *obj, t_object *ret)
 {
-	if (ret->name == SPHERE)
-		return (sphere_normal(ret, sdl));
-	if (ret->name == PLANE)
-		return (plane_normal(ret, sdl));
-	if (ret->name == CYLINDRE)
-		return (cylindre_normal(ret, sdl));
-	if (ret->name == CONE)
-		return (cone_normal(ret, sdl));
-	return (0);
+	if (sdl->scene->obj[g_iter].name == CYLINDRE &&
+		(obj = find_cylindre(&sdl->scene->obj[g_iter], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+		{
+			sdl->closest = obj->dist;
+			sdl->color = obj->color;
+			ret = obj;
+		}
+	}
+	if (sdl->scene->obj[g_iter].name == CONE &&
+		(obj = find_cone(&sdl->scene->obj[g_iter], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+		{
+			sdl->closest = obj->dist;
+			sdl->color = obj->color;
+			ret = obj;
+		}
+	}
+	return (ret);
 }
 
-int				ray_tracer_obj(t_sdl *sdl)
+t_object			*scene_calc_obj_one(t_sdl *sdl, t_ray *ray,
+	t_object *obj, t_object *ret)
+{
+	if (sdl->scene->obj[g_iter].name == SPHERE &&
+		(obj = find_sphere(&sdl->scene->obj[g_iter], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+		{
+			sdl->closest = obj->dist;
+			sdl->color = obj->color;
+			ret = obj;
+		}
+	}
+	if (sdl->scene->obj[g_iter].name == PLANE &&
+		(obj = find_plane(&sdl->scene->obj[g_iter], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+		{
+			sdl->closest = obj->dist;
+			sdl->color = obj->color;
+			ret = obj;
+		}
+	}
+	return (ret);
+}
+
+int					ray_tracer_obj(t_sdl *sdl)
 {
 	if (sdl->scene->name == SCENE_1)
 		return (draw_scene(sdl));

@@ -136,6 +136,7 @@ typedef struct		s_sdl
 	float			closest;
 	float			dist;
 	int				done;
+	t_color			color;
 	t_discrim		ts;
 }					t_sdl;
 
@@ -201,7 +202,8 @@ float				plane_normal(t_object *ret, t_sdl *sdl);
 float				cone_normal(t_object *ret, t_sdl *sdl);
 
 void				cam_move(t_sdl *sdl, int hook);
-void				key(t_sdl *sdl, const Uint8	*keykey);
+void				key_1(t_sdl *sdl, const Uint8	*keykey);
+void				key_2(t_sdl *sdl, const Uint8	*keykey);
 
 unsigned int		color_test(t_color *color_obj, float value);
 
@@ -209,5 +211,10 @@ int			shadow(t_sdl *sdl, t_light *light, t_vector *p);
 int			shadow_light(t_sdl *sdl, t_light *light, t_vector *p);
 
 void	protect_obj(t_sdl *sdl);
+void		shadow_calc_help(t_sdl *sdl, t_ray *ray, t_object *obj, int i);
+void		finde_light_helper(t_vector *norm, t_object *ret, t_sdl *sdl, t_vector *p);
+
+t_object			*scene_calc_obj_one(t_sdl *sdl, t_ray *ray, t_object *obj, t_object *ret);
+t_object			*scene_calc_obj_two(t_sdl *sdl, t_ray *ray, t_object *obj, t_object *ret);
 
 #endif

@@ -20,7 +20,6 @@ t_object		*find_solve_discrim(float *param, t_object *obj)
 	discrim = (param[1] * param[1]) - (4 * param[0] * param[2]);
 	if (discrim < 0 && discrim > -0.001)
 		discrim = 0;
-	// printf("discrim: %f\n", discrim);
 	if (discrim >= 0)
 	{
 		if ((tsp.x1 = (-param[1] + sqrtf(discrim)) / (2.0 * param[0])))
@@ -34,8 +33,6 @@ t_object		*find_solve_discrim(float *param, t_object *obj)
 			obj->dist = tsp.x2;
 		else if (tsp.x1 > 0 && tsp.x2 < 0)
 			obj->dist = tsp.x1;
-		// printf("obj: %d\n", obj->name);
-		// printf("dist: %f\n", obj->dist);
 		return (obj);
 	}
 	return (NULL);
