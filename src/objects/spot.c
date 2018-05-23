@@ -22,63 +22,57 @@ t_vector	g_r[4];
 t_vector	g_l;
 t_vector	g_v;
 
-int			shadow(t_sdl *sdl, t_light *light, t_vector *p)
+void		shadow_calc_help(t_sdl *sdl, t_ray *ray, t_object *obj, int i)
 {
-	float	len;
-
-	sdl->light->shadow.pos = light->dir;;
-	sdl->light->shadow.dir = vector_sub(&light->pos, &sdl->light->shadow.pos);
-	len = vector_len(&sdl->light->shadow.dir);
-	sdl->light->shadow.dir = vector_norm(&sdl->light->shadow.dir);
-	return (shadow_light(sdl, len, light, p));
+	if (sdl->scene->obj[i].name == SPHERE &&
+		(obj = find_sphere(&sdl->scene->obj[i], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+			sdl->closest = obj->dist;
+	}
+	if (sdl->scene->obj[i].name == CYLINDRE &&
+		(obj = find_cylindre(&sdl->scene->obj[i], ray)) != NULL)
+	{
+	if (sdl->closest > obj->dist)
+		sdl->closest = obj->dist;
+	}
+	if (sdl->scene->obj[i].name == CONE &&
+		(obj = find_cone(&sdl->scene->obj[i], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+			sdl->closest = obj->dist;
+	}
+	if (sdl->scene->obj[i].name == PLANE &&
+		(obj = find_plane(&sdl->scene->obj[i], ray)) != NULL)
+	{
+		if (sdl->closest > obj->dist)
+			sdl->closest = obj->dist;
+	}
 }
 
-int			shadow_light(t_sdl *sdl, int len, t_light *light, t_vector *p)
+int			shadow_light(t_sdl *sdl, t_light *light, t_vector *p)
 {
 	t_object	*obj;
 	t_object	*ret;
 	t_ray		ray;
 	int			i;
+	float 		dist;
 
 	i = 0;
 	ray.dir = vector_sub(&light->pos, p);
+	dist = vector_len(&ray.dir);
 	ray.dir = vector_norm(&ray.dir);
-	ray.pos = vector_mult_scal(&ray.dir, 0.001);
+	ray.pos = vector_mult_scal(&ray.dir, 0.01);
 	ray.pos = vector_add(&ray.pos, p);
-	// printf("x: %f y: %f z: %f\n", ray.dir.x, ray.dir.y, ray.dir.z);
 	sdl->closest = INFINITY;
 	while (i < sdl->scene->max_obj)
 	{
-		if (sdl->scene->obj[i].name == SPHERE &&
-			(obj = find_sphere(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				ret = obj;
-			}
-		}
-		if (sdl->scene->obj[i].name == CYLINDRE &&
-			(obj = find_cylindre(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				ret = obj;
-			}
-		}
-		if (sdl->scene->obj[i].name == CONE &&
-			(obj = find_cone(&sdl->scene->obj[i], &ray)) != NULL)
-		{
-			if (sdl->closest > obj->dist)
-			{
-				sdl->closest = obj->dist;
-				ret = obj;
-			}
-		}
+		shadow_calc_help(sdl, &ray, obj, i);
 		i++;
+
+		// printf("dist: %f\n", sdl->closest);
 	}
-	if (sdl->closest > 0 && sdl->closest < len)
+	if (sdl->closest > 0 && sdl->closest < dist)
 		return (0);
 	return (1);
 }
@@ -105,8 +99,9 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 			}
 			else
 				g_l = sdl->light[g_i].pos;
-			if (!shadow(sdl, &sdl->light[g_i], p))
+			if (!shadow_light(sdl, &sdl->light[g_i], p))
 			{
+
 				g_i++;
 				continue ;
 			}
@@ -128,6 +123,5 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 		}
 		g_i++;
 	}
-	// printf("res: %f\n", g_res);
 	return (g_res);
 }

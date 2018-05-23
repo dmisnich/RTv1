@@ -20,7 +20,6 @@ void				key(t_sdl *sdl, const Uint8	*keykey)
 	if (sdl->event.type == SDL_QUIT || (sdl->event.type == SDL_KEYDOWN
 		&& sdl->event.key.keysym.sym == SDLK_ESCAPE))
 		sdl->done = 1;
-		
 	else if (keykey[SDL_SCANCODE_UP])
 	{
 		hook = UP;

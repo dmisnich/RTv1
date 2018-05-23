@@ -17,7 +17,7 @@ void	help1_init_scene_1(t_object **obj)
 	(*obj)[1].name = SPHERE;
 	(*obj)[1].radius = 3.0;
 	(*obj)[1].pos.x = -1.0;
-	(*obj)[1].pos.y = -1.0;
+	(*obj)[1].pos.y = 3.0;
 	(*obj)[1].pos.z = -10.0;
 	(*obj)[1].color.r = 255;
 	(*obj)[1].color.g = 0;
@@ -27,14 +27,14 @@ void	help1_init_scene_1(t_object **obj)
 	(*obj)[0].radius = 1.0;
 	(*obj)[0].pos.x = 0.0;
 	(*obj)[0].pos.y = 0.0;
-	(*obj)[0].pos.z = -10.0;
+	(*obj)[0].pos.z = -6.0;
 	(*obj)[0].n.x = 0.0;
 	(*obj)[0].n.y = 1.0;
 	(*obj)[0].n.z = 0.0;
 	(*obj)[0].color.r = 0;
 	(*obj)[0].color.g = 137;
 	(*obj)[0].color.b = 5;
-	(*obj)[0].specular = 500;
+	(*obj)[0].specular = 100;
 }
 
 void	help2_init_scene_1(t_object **obj)

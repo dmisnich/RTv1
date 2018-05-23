@@ -206,6 +206,8 @@ void				key(t_sdl *sdl, const Uint8	*keykey);
 unsigned int		color_test(t_color *color_obj, float value);
 
 int			shadow(t_sdl *sdl, t_light *light, t_vector *p);
-int			shadow_light(t_sdl *sdl, int len, t_light *light, t_vector *p);
+int			shadow_light(t_sdl *sdl, t_light *light, t_vector *p);
+
+void	protect_obj(t_sdl *sdl);
 
 #endif

@@ -14,9 +14,9 @@
 
 void	init_scene_1(t_sdl *sdl)
 {
-	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 2.0;
-	sdl->camera.cam.z = -40.0;
+	sdl->camera.cam.x = 0.5;
+	sdl->camera.cam.y = 2.5;
+	sdl->camera.cam.z = -50.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_1;
@@ -29,8 +29,8 @@ void	init_scene_1(t_sdl *sdl)
 void	init_scene_2(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 10.0;
-	sdl->camera.cam.z = -50.0;
+	sdl->camera.cam.y = 1.0;
+	sdl->camera.cam.z = -600.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_2;
@@ -41,7 +41,7 @@ void	init_scene_2(t_sdl *sdl)
 	sdl->scene->obj[0].radius = 1.0;
 	sdl->scene->obj[0].pos.x = 0.0;
 	sdl->scene->obj[0].pos.y = 0.0;
-	sdl->scene->obj[0].pos.z = -5.0;
+	sdl->scene->obj[0].pos.z = -10.0;
 	sdl->scene->obj[0].n.x = 1.0;
 	sdl->scene->obj[0].n.y = 1.0;
 	sdl->scene->obj[0].n.z = 0.0;
@@ -51,10 +51,10 @@ void	init_scene_2(t_sdl *sdl)
 	sdl->scene->obj[0].specular = 500;
 
 	sdl->scene->obj[1].name = CONE;
-	sdl->scene->obj[1].tan = 0.5;
+	sdl->scene->obj[1].tan = -200000.5;
 	sdl->scene->obj[1].pos.x = 0.0;
 	sdl->scene->obj[1].pos.y = 0.0;
-	sdl->scene->obj[1].pos.z = -5.0;
+	sdl->scene->obj[1].pos.z = -10.0;
 	sdl->scene->obj[1].n.x = 0.0;
 	sdl->scene->obj[1].n.y = 1.0;
 	sdl->scene->obj[1].n.z = 0.0;
@@ -71,7 +71,7 @@ void	init_scene_2(t_sdl *sdl)
 	sdl->scene->obj[2].color.g = 139;
 	sdl->scene->obj[2].color.b = 139;
 	sdl->scene->obj[2].n.x = 0.0;
-	sdl->scene->obj[2].n.y = 1.0;
+	sdl->scene->obj[2].n.y = 0.0;
 	sdl->scene->obj[2].n.z = 0.0;
 
 	sdl->scene->obj[3].name = PLANE;
@@ -89,7 +89,7 @@ void	init_scene_2(t_sdl *sdl)
 void	init_scene_3(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 0.0;
+	sdl->camera.cam.y = 1.0;
 	sdl->camera.cam.z = -40.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
@@ -113,18 +113,18 @@ void	init_scene_3(t_sdl *sdl)
 void	init_scene_4(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 0.0;
-	sdl->camera.cam.z = -20.0;
+	sdl->camera.cam.y = 1.0;
+	sdl->camera.cam.z = -10.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_4;
-	sdl->scene->max_obj = 2;
-	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 2);
+	sdl->scene->max_obj = 4;
+	sdl->scene->obj = (t_object *)malloc(sizeof(t_object) * 4);
 	sdl->scene->obj[0].name = CYLINDRE;
 	sdl->scene->obj[0].radius = 1.0;
 	sdl->scene->obj[0].pos.x = 0.0;
 	sdl->scene->obj[0].pos.y = 0.0;
-	sdl->scene->obj[0].pos.z = 0.0;
+	sdl->scene->obj[0].pos.z = -10.0;
 	sdl->scene->obj[0].n.x = 0.0;
 	sdl->scene->obj[0].n.y = 1.0;
 	sdl->scene->obj[0].n.z = 0.0;
@@ -137,19 +137,41 @@ void	init_scene_4(t_sdl *sdl)
 	sdl->scene->obj[1].radius = 1.5 ;
 	sdl->scene->obj[1].pos.x = 1.0;
 	sdl->scene->obj[1].pos.y = 0.0;
-	sdl->scene->obj[1].pos.z = 0.0;
+	sdl->scene->obj[1].pos.z = -10.0;
 	sdl->scene->obj[1].color.r = 178;
 	sdl->scene->obj[1].color.g = 255;
 	sdl->scene->obj[1].color.b = 56;
 	sdl->scene->obj[1].specular = 500;
+
+	sdl->scene->obj[2].name = PLANE;
+	sdl->scene->obj[2].pos.x = 0.0;
+	sdl->scene->obj[2].pos.y = 0.0;
+	sdl->scene->obj[2].pos.z = 100.0;
+	sdl->scene->obj[2].color.r = 139;
+	sdl->scene->obj[2].color.g = 139;
+	sdl->scene->obj[2].color.b = 139;
+	sdl->scene->obj[2].n.x = 0.0;
+	sdl->scene->obj[2].n.y = 0.0;
+	sdl->scene->obj[2].n.z = 1.0;
+
+	sdl->scene->obj[3].name = PLANE;
+	sdl->scene->obj[3].pos.x = 0.0;
+	sdl->scene->obj[3].pos.y = 0.0;
+	sdl->scene->obj[3].pos.z = 0.0;
+	sdl->scene->obj[3].color.r = 139;
+	sdl->scene->obj[3].color.g = 139;
+	sdl->scene->obj[3].color.b = 139;
+	sdl->scene->obj[3].n.x = 0.0;
+	sdl->scene->obj[3].n.y = 1.0;
+	sdl->scene->obj[3].n.z = 0.0;
 }
 
 
 void	init_scene_5(t_sdl *sdl)
 {
 	sdl->camera.cam.x = 0.0;
-	sdl->camera.cam.y = 0.0;
-	sdl->camera.cam.z = -22.0;
+	sdl->camera.cam.y = 1.0;
+	sdl->camera.cam.z = -20.0;
 
 	sdl->scene = (t_scene *)malloc(sizeof(t_scene));
 	sdl->scene->name = SCENE_5;
@@ -163,7 +185,7 @@ void	init_scene_5(t_sdl *sdl)
 	sdl->scene->obj[0].color.r = 255;
 	sdl->scene->obj[0].color.g = 90;
 	sdl->scene->obj[0].color.b = 90;
-	sdl->scene->obj[0].specular = 300;
+	sdl->scene->obj[0].specular = 100;
 
 	sdl->scene->obj[1].name = SPHERE;
 	sdl->scene->obj[1].radius = 1.0;
@@ -173,7 +195,7 @@ void	init_scene_5(t_sdl *sdl)
 	sdl->scene->obj[1].color.r = 200;
 	sdl->scene->obj[1].color.g = 55;
 	sdl->scene->obj[1].color.b = 255;
-	sdl->scene->obj[1].specular = 300;
+	sdl->scene->obj[1].specular = 100;
 
 	sdl->scene->obj[2].name = SPHERE;
 	sdl->scene->obj[2].radius = 1.0;
@@ -183,7 +205,7 @@ void	init_scene_5(t_sdl *sdl)
 	sdl->scene->obj[2].color.r = 0;
 	sdl->scene->obj[2].color.g = 34;
 	sdl->scene->obj[2].color.b = 255;
-	sdl->scene->obj[2].specular = 300;
+	sdl->scene->obj[2].specular = 100;
 
 	sdl->scene->obj[3].name = SPHERE;
 	sdl->scene->obj[3].radius = 1.0;
@@ -193,7 +215,7 @@ void	init_scene_5(t_sdl *sdl)
 	sdl->scene->obj[3].color.r = 145;
 	sdl->scene->obj[3].color.g = 255;
 	sdl->scene->obj[3].color.b = 0;
-	sdl->scene->obj[3].specular = 300;
+	sdl->scene->obj[3].specular = 100;
 
 	sdl->scene->obj[4].name = SPHERE;
 	sdl->scene->obj[4].radius = 1.0;
@@ -203,7 +225,7 @@ void	init_scene_5(t_sdl *sdl)
 	sdl->scene->obj[4].color.r = 255;
 	sdl->scene->obj[4].color.g = 130;
 	sdl->scene->obj[4].color.b = 0;
-	sdl->scene->obj[4].specular = 300;
+	sdl->scene->obj[4].specular = 100;
 
 }
 
@@ -219,7 +241,7 @@ void	init_light(t_sdl *sdl)
 	sdl->light[1].intensity = 0.6;
 	sdl->light[1].pos.x = -2.0;
 	sdl->light[1].pos.y = 1.0;
-	sdl->light[1].pos.z = -16.0;
+	sdl->light[1].pos.z = -40.0;
 
 }
 
