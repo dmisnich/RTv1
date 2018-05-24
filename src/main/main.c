@@ -27,6 +27,7 @@ int					main(int argc, char **argv)
 	init_sdl(&sdl);
 	init_light(&sdl);
 	protect_obj(&sdl);
+	protect_light(&sdl);
 	keykey = SDL_GetKeyboardState(NULL);
 	raycaster(&sdl);
 	SDL_UpdateWindowSurface(sdl.win);

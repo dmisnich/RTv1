@@ -18,26 +18,27 @@ FLAGS = -Wall -Wextra -Werror -O3
 
 CFLAGS = -I ./include/ -I Frameworks/SDL2.framework/Headers
 
-
-SRCS =	src/main.c \
-		src/help_init_scene.c \
-		src/find_obj_normal.c \
-		src/solve_discrim.c \
-		src/vector_operation.c \
-		src/vector_operation2.c \
-		src/protect.c \
-		src/color.c \
-		src/ray.c \
-		src/key.c \
-		src/init.c \
+SRCS =	src/main/main.c \
+		src/main/find_obj_normal.c \
+		src/main/solve_discrim.c \
+		src/main/vector_operation.c \
+		src/main/vector_operation2.c \
+		src/main/ray.c \
+		src/misc/protect.c \
+		src/misc/color.c \
+		src/misc/key.c \
+		src/misc/init_one.c \
+		src/misc/init_two.c \
 		src/objects/spot.c \
 		src/objects/sphere.c \
 		src/objects/plane.c \
 		src/objects/cylindre.c \
 		src/objects/cone.c \
 		src/scene/scene_6_sphere.c \
-
-
+		src/scene/scene_6_plane.c \
+		src/scene/scene_6_cylindre.c \
+		src/scene/help_init_scene2.c \
+		src/scene/help_init_scene.c \
 
 OBJ = $(SRCS:.c=.o)
 
@@ -64,6 +65,9 @@ clean:
 	@make -C $(LFT_DIR) clean
 	@rm -f src/*.o
 	@rm -f src/objects/*.o
+	@rm -f src/scene/*.o
+	@rm -f src/main/*.o
+	@rm -f src/misc/*.o
 	@rm -rf ./*.dSYM
 
 norme:

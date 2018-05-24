@@ -49,7 +49,6 @@
 # include <../libft/libft.h>
 # include "../Frameworks/SDL2.framework/Headers/SDL.h"
 
-
 typedef struct		s_max
 {
 	int				max_spot;
@@ -75,11 +74,11 @@ typedef	struct		s_vector
 	float			z;
 }					t_vector;
 
-typedef struct	s_shadow
+typedef struct		s_shadow
 {
-	t_vector pos;
-	t_vector dir;
-}				t_shadow;
+	t_vector		pos;
+	t_vector		dir;
+}					t_shadow;
 
 typedef struct		s_light
 {
@@ -182,15 +181,12 @@ void				init_light(t_sdl *sdl);
 
 t_object			*find_solve_discrim(float *param, t_object *obj);
 
-void				init_scene(t_sdl *sdl);
-
 void				init_scene_1(t_sdl *sdl);
 void				init_scene_2(t_sdl *sdl);
 void				init_scene_3(t_sdl *sdl);
 void				init_scene_4(t_sdl *sdl);
-
 void				init_scene_5(t_sdl *sdl);
-void	init_scene_6(t_sdl *sdl);
+void				init_scene_6(t_sdl *sdl);
 
 int					parser_av(t_sdl *sdl, char *av);
 
@@ -199,23 +195,21 @@ void				help2_init_scene_1(t_object **obj);
 void				help1_init_scene_3(t_object **obj);
 void				help1_init_scene_4(t_object **obj);
 void				help2_init_scene_4(t_object **obj);
+void				help1_init_scene_5(t_object **obj);
+void				help2_init_scene_5(t_object **obj);
 
-
-
-void	scene_6_sphere1_up1(t_object **obj);
-void	scene_6_sphere1_down1(t_object **obj);
-void	scene_6_sphere1_up2(t_object **obj);
-void	scene_6_sphere1_down2(t_object **obj);
-
-
-
+void				scene_6_sphere1_up1(t_object **obj);
+void				scene_6_sphere1_down1(t_object **obj);
+void				scene_6_sphere1_up2(t_object **obj);
+void				scene_6_sphere1_down2(t_object **obj);
+void				scene_6_plane_1(t_object **obj);
+void				scene_6_plane_2(t_object **obj);
+void				scene_6_cylindre_further(t_object **obj);
+void				scene_6_plane_near(t_object **obj);
 
 int					draw_scene(t_sdl *sdl);
-
 float				light(t_sdl *sdl, int i, t_object *ret, t_discrim tsp);
-
 float				find_normal(t_object *ret, t_sdl *sdl);
-
 float				sphere_normal(t_object *ret, t_sdl *sdl);
 float				cylindre_normal(t_object *ret, t_sdl *sdl);
 float				plane_normal(t_object *ret, t_sdl *sdl);
@@ -227,14 +221,19 @@ void				key_2(t_sdl *sdl, const Uint8	*keykey);
 
 unsigned int		color_test(t_color *color_obj, float value);
 
-int			shadow(t_sdl *sdl, t_light *light, t_vector *p);
-int			shadow_light(t_sdl *sdl, t_light *light, t_vector *p);
+int					shadow(t_sdl *sdl, t_light *light, t_vector *p);
+int					shadow_light(t_sdl *sdl, t_light *light, t_vector *p);
 
-void	protect_obj(t_sdl *sdl);
-void		shadow_calc_help(t_sdl *sdl, t_ray *ray, t_object *obj, int i);
-void		finde_light_helper(t_vector *norm, t_object *ret, t_sdl *sdl, t_vector *p);
+void				protect_obj(t_sdl *sdl);
+void				protect_light(t_sdl *sdl);
+void				shadow_calc_help(t_sdl *sdl, t_ray *ray,
+					t_object *obj, int i);
+void				finde_light_helper(t_vector *norm, t_object *ret,
+					t_sdl *sdl, t_vector *p);
 
-t_object			*scene_calc_obj_one(t_sdl *sdl, t_ray *ray, t_object *obj, t_object *ret);
-t_object			*scene_calc_obj_two(t_sdl *sdl, t_ray *ray, t_object *obj, t_object *ret);
+t_object			*scene_calc_obj_one(t_sdl *sdl, t_ray *ray,
+					t_object *obj, t_object *ret);
+t_object			*scene_calc_obj_two(t_sdl *sdl, t_ray *ray,
+					t_object *obj, t_object *ret);
 
 #endif

@@ -28,3 +28,18 @@ void		protect_obj(t_sdl *sdl)
 		i++;
 	}
 }
+
+void		protect_light(t_sdl *sdl)
+{
+	int		i;
+
+	i = 0;
+	while (i < sdl->max.max_spot)
+	{
+		if (sdl->light[i].intensity < 0.0)
+			sdl->light[i].intensity = 0.0;
+		if (sdl->light[i].intensity > 1.0)
+			sdl->light[i].intensity = 1.0;
+		i++;
+	}
+}

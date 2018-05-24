@@ -23,7 +23,6 @@ void	scene_6_sphere1_up1(t_object **obj)
 	(*obj)[8].color.g = 230;
 	(*obj)[8].color.b = 255;
 	(*obj)[8].specular = 30;
-
 	(*obj)[9].name = SPHERE;
 	(*obj)[9].radius = 1.5;
 	(*obj)[9].pos.x = -5.0;
@@ -46,7 +45,6 @@ void	scene_6_sphere1_down1(t_object **obj)
 	(*obj)[10].color.g = 230;
 	(*obj)[10].color.b = 255;
 	(*obj)[10].specular = 30;
-
 	(*obj)[11].name = SPHERE;
 	(*obj)[11].radius = 1.5;
 	(*obj)[11].pos.x = 5.0;
@@ -69,7 +67,6 @@ void	scene_6_sphere1_up2(t_object **obj)
 	(*obj)[12].color.g = 230;
 	(*obj)[12].color.b = 255;
 	(*obj)[12].specular = 30;
-
 	(*obj)[13].name = SPHERE;
 	(*obj)[13].radius = 1.5;
 	(*obj)[13].pos.x = -5.0;
@@ -92,7 +89,6 @@ void	scene_6_sphere1_down2(t_object **obj)
 	(*obj)[14].color.g = 230;
 	(*obj)[14].color.b = 255;
 	(*obj)[14].specular = 30;
-
 	(*obj)[15].name = SPHERE;
 	(*obj)[15].radius = 1.5;
 	(*obj)[15].pos.x = -5.0;
