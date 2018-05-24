@@ -155,6 +155,7 @@ void				raycaster(t_sdl *sdl);
 t_vector			find_ray_diraction(t_sdl *sdl, int x, int y);
 
 int					parse_obj(t_sdl *sdl);
+void				msg(void);
 
 int					ray_tracer_obj(t_sdl *sdl);
 

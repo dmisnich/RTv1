@@ -19,7 +19,7 @@ int					main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr("error\n");
+		msg();
 		return (0);
 	}
 	if (!(parser_av(&sdl, argv[1])))
@@ -57,7 +57,7 @@ int					parser_av(t_sdl *sdl, char *av)
 		init_scene_6(sdl);
 	else
 	{
-		ft_putstr("forbidden name\n");
+		ft_putstr("Forbidden name\n");
 		return (0);
 	}
 	return (1);
@@ -72,4 +72,13 @@ t_vector			find_ray_diraction(t_sdl *sdl, int x, int y)
 	res.z = 1.0;
 	res = vector_norm(&res);
 	return (res);
+}
+
+void				msg(void)
+{
+	ft_putstr("Error, add the argument.\n");
+	ft_putstr("Enter the name:\n");
+	ft_putstr("1: scene_1   2: scene_2\n");
+	ft_putstr("3: scene_3   4: scene_4\n");
+	ft_putstr("5: scene_5   6: scene_6\n");
 }
