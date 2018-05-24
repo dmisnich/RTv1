@@ -52,6 +52,8 @@ int					parser_av(t_sdl *sdl, char *av)
 		init_scene_4(sdl);
 	else if (!(ft_strcmp(av, "scene_5")))
 		init_scene_5(sdl);
+	else if (!(ft_strcmp(av, "scene_6")))
+		init_scene_6(sdl);
 	else
 	{
 		ft_putstr("forbidden name\n");

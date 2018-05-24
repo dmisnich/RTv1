@@ -35,6 +35,7 @@ SRCS =	src/main.c \
 		src/objects/plane.c \
 		src/objects/cylindre.c \
 		src/objects/cone.c \
+		src/scene/scene_6_sphere.c \
 
 
 

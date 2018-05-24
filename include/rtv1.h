@@ -50,6 +50,11 @@
 # include "../Frameworks/SDL2.framework/Headers/SDL.h"
 
 
+typedef struct		s_max
+{
+	int				max_spot;
+}					t_max;
+
 typedef struct		s_color
 {
 	int				r;
@@ -138,6 +143,7 @@ typedef struct		s_sdl
 	int				done;
 	t_color			color;
 	t_discrim		ts;
+	t_max			max;
 }					t_sdl;
 
 void				init_camera(t_sdl *sdl);
@@ -184,11 +190,25 @@ void				init_scene_3(t_sdl *sdl);
 void				init_scene_4(t_sdl *sdl);
 
 void				init_scene_5(t_sdl *sdl);
+void	init_scene_6(t_sdl *sdl);
 
 int					parser_av(t_sdl *sdl, char *av);
 
 void				help1_init_scene_1(t_object **obj);
 void				help2_init_scene_1(t_object **obj);
+void				help1_init_scene_3(t_object **obj);
+void				help1_init_scene_4(t_object **obj);
+void				help2_init_scene_4(t_object **obj);
+
+
+
+void	scene_6_sphere1_up1(t_object **obj);
+void	scene_6_sphere1_down1(t_object **obj);
+void	scene_6_sphere1_up2(t_object **obj);
+void	scene_6_sphere1_down2(t_object **obj);
+
+
+
 
 int					draw_scene(t_sdl *sdl);
 

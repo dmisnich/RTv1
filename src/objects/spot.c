@@ -101,7 +101,7 @@ float		findelight(t_vector *p, t_vector *norm, t_sdl *sdl, t_object *ret)
 	g_res = 0.0;
 	g_v = vector_mult_scal(&sdl->ray.dir, -1);
 	g_len_norm = vector_len(norm);
-	while (g_i < 3)
+	while (g_i < sdl->max.max_spot)
 	{
 		if (sdl->light[g_i].type == AMBIENT)
 			g_res += sdl->light[g_i].intensity;
