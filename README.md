@@ -1,17 +1,17 @@
 
-#RTv1
+# RTv1
 
-##Description
+## Description
 Discover the fundamental principles of Raytracing and computer-generated imagery. Create simple scenes involving objects and non complex lights.
 
-###Objectives:
+### Objectives:
 > Raytracing
  
 > Space geometry
 
 > Matrix
 
-###Skills:
+### Skills:
 > Algorithms & AI
  
 > Graphics
@@ -20,10 +20,10 @@ Discover the fundamental principles of Raytracing and computer-generated imagery
 
 > Imperative programming 
 
-##Requirements
+## Requirements
 **Mac OS El Capitan / Sierra / High Sierra**
 
-##Installation
+## Installation
 
 ```
 git clone https://github.com/dmisnich/RTv1.git ~/RT fg
@@ -34,14 +34,14 @@ git clone https://github.com/dmisnich/RTv1.git ~/RT fg
 make
 ```
 
-##Examples
+## Examples
 
 ![name](https://image.ibb.co/cSZjDJ/Screen_Shot_2018_06_02_at_11_05_13_AM.png)
 
 ![](https://image.ibb.co/fDE4xd/Screen_Shot_2018_06_02_at_11_04_54_AM.png)
 
 
-##Author
+## Author
 
 **Dmitry Misnichenko**
 
