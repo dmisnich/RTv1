@@ -27,11 +27,12 @@ Discover the fundamental principles of Raytracing and computer-generated imagery
 
 ```
 git clone https://github.com/dmisnich/RTv1.git ~/RTv1
-~/RTv1 Enter the name
+cd ~/RTv1
+make
+./RTv1 Enter the name
 1: scene_1   2: scene_2
 3: scene_3   4: scene_4
 5: scene_5   6: scene_6
-make
 ```
 
 ## Examples
