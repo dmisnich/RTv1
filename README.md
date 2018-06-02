@@ -26,7 +26,7 @@ Discover the fundamental principles of Raytracing and computer-generated imagery
 ## Installation
 
 ```
-git clone https://github.com/dmisnich/RTv1.git ~/RT fg
+git clone https://github.com/dmisnich/RTv1.git ~/RTv1
 ~/RTv1 Enter the name
 1: scene_1   2: scene_2
 3: scene_3   4: scene_4
